@@ -1,11 +1,18 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function TodoList({ getTodoList, todoList, USER_TOKEN, getTodoById }) {
+  const navigate = useNavigate()
   const [newTodo, setNewTodo] = useState({
     title: '',
     content: '',
   })
+
+  const onClickTodo = (e) =>{
+    const id = e.target.closest('li').id
+    navigate(`/${id}`)
+  }
 
   const onChange = (e) => {
     setNewTodo({ ...newTodo, [e.target.id]: e.target.value })
@@ -44,7 +51,7 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, getTodoById }) {
           {
             Object.values(todoList).map((item, key) => (
               <li className='items__row' id={item.id}>
-                <div className='item' onClick={getTodoById}>
+                <div className='item' onClick={onClickTodo}>
                   {item.title}
                   <div className='button-group'>
                     <button
