@@ -36,7 +36,6 @@ export const login = async (req: Request, res: Response) => {
 // 회원 가입
 export const signUp = async (req: Request, res: Response) => {
   const { email, password }: UserInput = req.body;
-
   const { isValid, message } = loginValidator({ email, password });
   if (!isValid) {
     return res.status(StatusCodes.BAD_REQUEST).send(createError(message));
