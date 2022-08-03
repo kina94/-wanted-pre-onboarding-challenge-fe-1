@@ -1,18 +1,23 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 
-function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
-  const navigate = useNavigate()
+function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
+  const formRef = useRef()
   const params = useParams()
+  const navigate = useNavigate()
   const [newTodo, setNewTodo] = useState({
     title: '',
     content: '',
   })
 
-  const onClickTodo = (e) =>{
+  const onClickTodo = (e) => {
     const clickedId = e.target.closest('li').id
-    navigate(`/${clickedId}`)
+    if(e.target.id === 'edit'){
+      navigate(`/${clickedId}/edit`)
+    } else {
+      navigate(`/${clickedId}`)
+    }
   }
 
   const onChange = (e) => {
@@ -25,7 +30,9 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
         newTodo,
         { headers: { Authorization: USER_TOKEN } })
       if (res.status === 200) {
-        getTodoList()
+        const data = res.data.data
+        todoAddOrUpdate(data)
+        formRef.current.reset()
       }
     } catch (error) {
       alert(error)
@@ -39,14 +46,10 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
       const res = await axios.delete(`/todos/${clickedId}`,
         { headers: { Authorization: USER_TOKEN } })
       if (res.status === 200) {
-        if(params['*']===clickedId){
+        if (params['*'] === clickedId) {
           navigate('/')
         }
-        const update = { ...todoList }
-        const id = Object.keys(update).filter(key => update[key].id === clickedId)
-        delete update[id]
-        setTodoList(update)
-        return res
+        todoDelete(clickedId)
       }
     } catch (error) {
       throw new Error('abc')
@@ -64,12 +67,12 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
                   {item.title}
                   <div className='button-group'>
                     <button
-                      onClick={onClickDelete}>
-                      <i className="fas fa-pen"></i>
+                      onClick={onClickTodo}>
+                      <i className="fas fa-pen" id='edit'></i>
                     </button>
                     <button
                       onClick={onClickDelete}>
-                      <i className="fas fa-trash-alt"></i>
+                      <i className="fas fa-trash-alt" id='delete'></i>
                     </button>
                   </div>
 
@@ -82,7 +85,7 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
       </section>
 
       <section className='todo-bottom'>
-        <form>
+        <form ref={formRef}>
           <input type='text'
             id='title'
             onChange={onChange}

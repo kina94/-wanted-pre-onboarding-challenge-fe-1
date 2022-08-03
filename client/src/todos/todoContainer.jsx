@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import TodoList from './todoList';
+import TodoEdit from './todoEdit';
 import Todo from './todo';
 import './todos.css'
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
@@ -15,7 +16,7 @@ function TodoContainer() {
         } else {
             getTodoList()
         }
-    }, [])
+    }, [todoList])
 
     //todoList 불러오기
     const getTodoList = async() => {
@@ -28,6 +29,20 @@ function TodoContainer() {
           } catch (error) {
             alert(error.response.data.details)
           }
+    }
+
+    //todoList 삭제 추가 수정 이벤트
+    const todoAddOrUpdate = (data) =>{
+        const update = { ...todoList}
+        const id = Object.keys(update).filter(key => update[key].id === data.id)
+        update[id] = data
+        setTodoList(update)
+    }
+
+    const todoDelete = (dataId) => {
+        const update = { ...todoList }
+        const id = Object.keys(update).filter(key => update[key].id === dataId)
+        delete update[id]
     }
 
     //로그아웃 이벤트
@@ -47,8 +62,8 @@ function TodoContainer() {
                     <h1>Todo List</h1>
                     <hr></hr>
                     <TodoList USER_TOKEN={USER_TOKEN}
-                    getTodoList={getTodoList}
-                    setTodoList={setTodoList}
+                    todoAddOrUpdate={todoAddOrUpdate}
+                    todoDelete={todoDelete}
                     todoList={todoList}
                     ></TodoList>
                 </section>
@@ -58,6 +73,7 @@ function TodoContainer() {
                     <Routes>
                         <Route exact={true} path='/' element={<>Todo List에서 상세 조회할 할일을 선택해주세요</>} />
                         <Route exact={true} path=':num' element={<Todo/>} />
+                        <Route exact={true} path=':num/edit' element={<TodoEdit/>} />
                     </Routes>
                 </section>
             </section>
