@@ -15,7 +15,7 @@ function Todo() {
         setTodo(res.data.data)
       }
     } catch (error) {
-      alert(error)
+      throw new Error('abc')
     }
   }
 

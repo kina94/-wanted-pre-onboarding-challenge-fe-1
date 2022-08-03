@@ -48,6 +48,7 @@ function TodoContainer() {
                     <hr></hr>
                     <TodoList USER_TOKEN={USER_TOKEN}
                     getTodoList={getTodoList}
+                    setTodoList={setTodoList}
                     todoList={todoList}
                     ></TodoList>
                 </section>

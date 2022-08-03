@@ -1,17 +1,18 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function TodoList({ getTodoList, todoList, USER_TOKEN, getTodoById }) {
+function TodoList({ getTodoList, todoList, USER_TOKEN, setTodoList }) {
   const navigate = useNavigate()
+  const params = useParams()
   const [newTodo, setNewTodo] = useState({
     title: '',
     content: '',
   })
 
   const onClickTodo = (e) =>{
-    const id = e.target.closest('li').id
-    navigate(`/${id}`)
+    const clickedId = e.target.closest('li').id
+    navigate(`/${clickedId}`)
   }
 
   const onChange = (e) => {
@@ -32,15 +33,23 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, getTodoById }) {
   }
 
   const onClickDelete = async (e) => {
-    const id = e.target.closest('li').id
+    e.stopPropagation()
+    const clickedId = e.target.closest('li').id
     try {
-      const res = await axios.delete(`/todos/${id}`,
+      const res = await axios.delete(`/todos/${clickedId}`,
         { headers: { Authorization: USER_TOKEN } })
       if (res.status === 200) {
-        getTodoList()
+        if(params['*']===clickedId){
+          navigate('/')
+        }
+        const update = { ...todoList }
+        const id = Object.keys(update).filter(key => update[key].id === clickedId)
+        delete update[id]
+        setTodoList(update)
+        return res
       }
     } catch (error) {
-      alert(error)
+      throw new Error('abc')
     }
   }
 
@@ -50,7 +59,7 @@ function TodoList({ getTodoList, todoList, USER_TOKEN, getTodoById }) {
         <ul className='items'>
           {
             Object.values(todoList).map((item, key) => (
-              <li className='items__row' id={item.id}>
+              <li className='items__row' id={item.id} >
                 <div className='item' onClick={onClickTodo}>
                   {item.title}
                   <div className='button-group'>
