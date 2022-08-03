@@ -17,9 +17,6 @@ header{
 
 }
 
-.todo-content{
-}
-
 .todo-bottom{
     position:fixed;
     bottom:0;
@@ -56,4 +53,37 @@ header{
 
 .todos{
     width:50%;
+}
+
+.item:hover{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    height:100%;
+    justify-content: space-between;
+    padding:8px 32px;
+}
+
+
+.button-group > button{
+    border:none;
+    background-color:transparent;
+    font-size:16px;
+    transition: all 50ms ease-in;
+}
+
+.button-group > button:hover{
+    color:#3AB4F2;
+    transform: scale(1.1);
+}
+
+.todo-content{
+    padding: 0 1em;
+    text-align:left;
+    display:flex;
+    justify-content: space-between;
 }

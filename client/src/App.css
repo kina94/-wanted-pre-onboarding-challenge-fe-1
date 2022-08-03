@@ -67,6 +67,12 @@ input{
   border-radius: 5px;
 }
 
+ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
 .content .button-group {
   list-style:none;
   display:flex;
@@ -78,7 +84,6 @@ input{
 button {
   cursor:pointer;
   margin:0 0.2em;
-  width:100px;
   height:35px;
 }
 
