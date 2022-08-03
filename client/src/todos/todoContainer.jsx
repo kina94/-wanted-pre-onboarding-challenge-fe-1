@@ -8,6 +8,7 @@ import './todos.css'
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 function TodoContainer() {
     const [todoList, setTodoList] = useState({})
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,22 +19,22 @@ function TodoContainer() {
         }
     }, [todoList])
 
-    //todoList 불러오기
-    const getTodoList = async() => {
+    //fetch todoList
+    const getTodoList = async () => {
         try {
             const res = await axios.get('/todos',
-            {headers:{Authorization: USER_TOKEN}})
+                { headers: { Authorization: USER_TOKEN } })
             if (res.status === 200) {
                 setTodoList(res.data.data)
             }
-          } catch (error) {
+        } catch (error) {
             alert(error.response.data.details)
-          }
+        }
     }
 
-    //todoList 삭제 추가 수정 이벤트
-    const todoAddOrUpdate = (data) =>{
-        const update = { ...todoList}
+    //todo 삭제 추가 수정 이벤트
+    const todoAddOrUpdate = (data) => {
+        const update = { ...todoList }
         const id = Object.keys(update).filter(key => update[key].id === data.id)
         update[id] = data
         setTodoList(update)
@@ -51,6 +52,10 @@ function TodoContainer() {
         navigate('/login')
     }
 
+    /*-----------------------todo------------------*/
+    //fetch Todo
+
+
     return (
         <section className='wrapper'>
             <header>
@@ -62,9 +67,9 @@ function TodoContainer() {
                     <h1>Todo List</h1>
                     <hr></hr>
                     <TodoList USER_TOKEN={USER_TOKEN}
-                    todoAddOrUpdate={todoAddOrUpdate}
-                    todoDelete={todoDelete}
-                    todoList={todoList}
+                        todoAddOrUpdate={todoAddOrUpdate}
+                        todoDelete={todoDelete}
+                        todoList={todoList}
                     ></TodoList>
                 </section>
                 <section className='todos'>
@@ -72,8 +77,7 @@ function TodoContainer() {
                     <hr></hr>
                     <Routes>
                         <Route exact={true} path='/' element={<>Todo List에서 상세 조회할 할일을 선택해주세요</>} />
-                        <Route exact={true} path=':num' element={<Todo/>} />
-                        <Route exact={true} path=':num/edit' element={<TodoEdit/>} />
+                        <Route exact={true} path=':num/*' element={<Todo todoAddOrUpdate={todoAddOrUpdate}/>} />
                     </Routes>
                 </section>
             </section>

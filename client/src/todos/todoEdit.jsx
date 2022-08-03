@@ -1,8 +1,13 @@
 import React from 'react'
 
-function TodoEdit() {
+function TodoEdit({todo, getTodoById}) {
   return (
-    <div>todoEdit</div>
+    <section className='todo-content'>
+      <div className='todo'>
+        <h3>{todo.title}</h3>
+        <p>{todo.content}</p>
+      </div>
+    </section>
   )
 }
 
