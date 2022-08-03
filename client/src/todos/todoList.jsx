@@ -65,7 +65,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
               <li className='items__row' id={item.id} >
                 <div className='item' onClick={onClickTodo}>
                   {item.title}
-                  <div className='button-group'>
+                  <div className='todos-buttons'>
                     <button
                       onClick={onClickTodo}>
                       <i className="fas fa-pen" id='edit'></i>

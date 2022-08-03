@@ -81,10 +81,14 @@ ul{
   justify-content:flex-end;
 }
 
-button {
+button{
   cursor:pointer;
   margin:0 0.2em;
   height:35px;
+}
+
+.button-group > button {
+  min-width:80px;
 }
 
 @keyframes App-logo-spin {

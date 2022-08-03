@@ -69,14 +69,14 @@ header{
 }
 
 
-.button-group > button{
+.todos-buttons > button{
     border:none;
     background-color:transparent;
     font-size:16px;
     transition: all 50ms ease-in;
 }
 
-.button-group > button:hover{
+.todos-buttons > button:hover{
     color:#3AB4F2;
     transform: scale(1.1);
 }
