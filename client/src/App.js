@@ -1,33 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
-import React, {useEffect} from 'react'
-import axios from 'axios'
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginContainer from './auth/loginContainer';
+import SignUpContainer from './auth/signUpContainer';
+import TodoContainer from './todos/todoContainer';
 
 function App() {
-  const call = async () =>{
-    axios.get('../users/test').then((res)=>console.log(res))
-  }
-
-  useEffect(()=>{
-    call()
-  },[])
-
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<TodoContainer/>}/>
+        <Route path='/login' element={<LoginContainer/>}/>
+        <Route path='/sign_up' element={<SignUpContainer/>}/>
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
