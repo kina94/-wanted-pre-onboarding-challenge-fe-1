@@ -24,36 +24,45 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     setNewTodo({ ...newTodo, [e.target.id]: e.target.value })
   }
 
-  const onSubmit = async () => {
+  const callCreateTodoApi = async() => {
     try {
       const res = await axios.post('/todos',
         newTodo,
         { headers: { Authorization: USER_TOKEN } })
       if (res.status === 200) {
-        const data = res.data.data
-        todoAddOrUpdate(data)
-        formRef.current.reset()
+        return res.data.data
       }
     } catch (error) {
       alert(error)
     }
   }
 
-  const onClickDelete = async (e) => {
-    e.stopPropagation()
-    const clickedId = e.target.closest('li').id
+  const callDeleteTodoApi = async(id) => {
     try {
-      const res = await axios.delete(`/todos/${clickedId}`,
+      const res = await axios.delete(`/todos/${id}`,
         { headers: { Authorization: USER_TOKEN } })
       if (res.status === 200) {
-        if (params['*'] === clickedId) {
-          navigate('/')
-        }
-        todoDelete(clickedId)
+        return res.data.data
       }
     } catch (error) {
       throw new Error('abc')
     }
+  }
+
+  const onClickDelete = async(e) => {
+    e.stopPropagation()
+    const clickedId = e.target.closest('li').id
+    callDeleteTodoApi(clickedId)
+    if (params['*'] === clickedId) {
+      navigate('/')
+    }
+    todoDelete(clickedId)
+  }
+
+  const onSubmit = async() =>{
+    const data = await callCreateTodoApi()
+    todoAddOrUpdate(data)
+    formRef.current.reset()
   }
 
   return (
