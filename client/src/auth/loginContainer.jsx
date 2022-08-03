@@ -14,15 +14,15 @@ function LoginContainer() {
   const onChange = (e) => {
     setUser({ ...user, [e.target.id]: e.target.value })
   }
-  
-  const onLoginSubmit = async() => {
-    try{
+
+  const onLoginSubmit = async () => {
+    try {
       const res = await axios.post('/users/login', user)
-      if(res.status===200){
+      if (res.status === 200) {
         localStorage.setItem('token', JSON.stringify(res.data.token))
         navigate('/')
       }
-    } catch(error) {
+    } catch (error) {
       alert(error.response.data.details)
     }
   }
@@ -33,6 +33,7 @@ function LoginContainer() {
 
   return (
     <Auth title='Login'
+      user={user}
       onChange={onChange}
       onClick={onClickSignUp}
       onSubmit={onLoginSubmit} />

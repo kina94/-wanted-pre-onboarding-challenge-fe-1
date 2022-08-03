@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
+import { submitValidator } from '../utils/submitValidator';
 
-function Auth({ onSubmit, onClick, onChange, title }) {
+function Auth({ onSubmit, onClick, onChange, title, user }) {
   const location = useLocation().pathname
   return (
     <section className='wrapper'>
@@ -26,7 +27,9 @@ function Auth({ onSubmit, onClick, onChange, title }) {
             <button className="login"
               onClick={onSubmit}
               type='submit'
-              form='login-form'>로그인</button>
+              form='login-form'
+              disabled={submitValidator(user) ? false : true}
+              >로그인</button>
           }
           <button className="sign-up"
             onClick={onClick}>회원가입</button>

@@ -28,6 +28,7 @@ function SignUpContainer() {
 
     return (
         <Auth title='SignUp'
+            user={user}
             onChange={onChange}
             onClick={onClickSignUp} />
     )
