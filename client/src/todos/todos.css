@@ -1,0 +1,59 @@
+header{
+    display:flex;
+    justify-content:right;
+    align-items:center;
+    width:100%;
+    position:fixed;
+    top:0;
+    background-color: #3AB4F2;
+    padding:0.5em;
+  }
+
+.todo-body{
+    padding-top:5em;
+    display:flex;
+    height:100%;
+    width:100%;
+
+}
+
+.todo-content{
+}
+
+.todo-bottom{
+    position:fixed;
+    bottom:0;
+    width:50%;
+    padding:1em;
+}
+
+.todo-bottom form{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.todo-bottom button{
+    margin:0.3em;
+    width:100%;
+    background-color:#3AB4F2;
+    border:none;
+    color:white;
+    font-weight:bold;
+    height:50px;
+    font-size:18px;
+    border-radius:5px;
+}
+
+.todo-bottom button:hover{
+    opacity:0.8;
+}
+
+.todo-list{
+    width:50%;
+    border-right: 1px solid whitesmoke;
+}
+
+.todos{
+    width:50%;
+}
