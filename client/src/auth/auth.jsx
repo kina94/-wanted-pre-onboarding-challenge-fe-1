@@ -7,9 +7,9 @@ function Auth({ onSubmit, onClick, onChange, title, user }) {
   return (
     <section className='wrapper'>
       <div className='content'>
-        <h1>{title}</h1>
+        <h1 style={{color:'#3AB4F2'}}>{title}</h1>
         <hr></hr>
-        <form>
+        <form className='form'>
           <input type='text'
             id='email'
             onChange={onChange}
@@ -27,12 +27,13 @@ function Auth({ onSubmit, onClick, onChange, title, user }) {
             <button className="login"
               onClick={onSubmit}
               type='submit'
-              form='login-form'
               disabled={submitValidator(user) ? false : true}
               >로그인</button>
           }
           <button className="sign-up"
-            onClick={onClick}>회원가입</button>
+            onClick={onClick}
+            disabled={location==='/sign_up' && !submitValidator(user)? true : false}
+            >회원가입</button>
         </div>
       </div>
 

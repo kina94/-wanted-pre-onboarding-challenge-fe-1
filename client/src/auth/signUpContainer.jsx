@@ -17,8 +17,8 @@ function SignUpContainer() {
                 navigate('/login')
                 return res
             }
-        } catch {
-            throw new Error(`에러 발생 ${e.message}, ${e.status}`)
+        } catch(error) {
+            alert(error.response.data.details)
         }
     }
 
