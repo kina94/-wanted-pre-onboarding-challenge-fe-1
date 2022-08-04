@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom';
+import { callGetTodoById, callUpdateTodo } from '../service/todoService.js'
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function Todo({todoAddOrUpdate}) {
@@ -8,39 +9,25 @@ function Todo({todoAddOrUpdate}) {
   const navigate = useNavigate()
   const [todo, setTodo] = useState({})
 
-  const getTodoById = async (id) => {
-    try {
-      const res = await axios.get(`/todos/${id}`,
-        { headers: { Authorization: USER_TOKEN } })
-      if (res.status === 200) {
-        setTodo(res.data.data)
-      }
-    } catch (error) {
-      throw new Error('abc')
+  const getTodo = async(id) =>{
+    const response = await callGetTodoById(USER_TOKEN, id)
+    if(response){
+      setTodo(response.data.data)
     }
+  }
+
+  const onClickModify = async() => {
+    const response = await callUpdateTodo(USER_TOKEN, params.num, todo)
+    todoAddOrUpdate(response.data.data)
+    navigate(`/${params.num}`)
   }
 
   const onChange = (e) =>{
     setTodo({...todo, [e.target.id] : e.target.value})
   }
-
-  const onSubmit = async(e) => {
-    try {
-      const res = await axios.put(`/todos/${params.num}`,
-        todo,
-        { headers: { Authorization: USER_TOKEN } })
-      if (res.status === 200) {
-        const data = res.data.data
-        todoAddOrUpdate(data)
-        navigate(`/${params.num}`)
-      }
-    } catch (error) {
-      alert(error)
-    }
-  }
  
   useEffect(() => {
-    getTodoById(params.num)
+    getTodo(params.num)
   }, [params.num])
 
   const switchViewByMode = () => {
@@ -51,7 +38,7 @@ function Todo({todoAddOrUpdate}) {
             <input type='text' id='title' value={todo.title} onChange={onChange}></input>
             <input type='text' id='content' value={todo.content} onChange={onChange}></input>
           </form>
-          <button onClick={onSubmit}>수정하기</button>
+          <button onClick={onClickModify}>수정하기</button>
           <button onClick={()=>navigate(`/${params.num}`)}>취소하기</button>
         </div>
       )

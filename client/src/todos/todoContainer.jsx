@@ -4,6 +4,7 @@ import axios from 'axios';
 import TodoList from './todoList';
 import Todo from './todo';
 import './todos.css'
+import { callGetTodos } from '../service/todoService';
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function TodoContainer() {
@@ -15,20 +16,15 @@ function TodoContainer() {
         if (!USER_TOKEN) {
             navigate('/login')
         } else {
-            callGetTodosApi()
+            getTodos()
         }
     }, [])
 
     //fetch todoList
-    const callGetTodosApi = async () => {
-        try {
-            const res = await axios.get('/todos',
-                { headers: { Authorization: USER_TOKEN } })
-            if (res.status === 200) {
-                setTodoList(res.data.data)
-            }
-        } catch (error) {
-            alert(error.response.data.details)
+    const getTodos = async() => {
+        const response = await callGetTodos(USER_TOKEN)
+        if(response){
+            setTodoList(response.data.data)
         }
     }
 

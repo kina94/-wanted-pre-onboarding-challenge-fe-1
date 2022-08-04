@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import { callCreateTodo, callDeleteTodo } from '../service/todoService';
 
 function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
   const formRef = useRef()
@@ -11,6 +12,10 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     content: '',
   })
 
+  const onChange = (e) => {
+    setNewTodo({ ...newTodo, [e.target.id]: e.target.value })
+  }
+
   const onClickTodo = (e) => {
     const clickedId = e.target.closest('li').id
     if(e.target.id === 'edit'){
@@ -20,48 +25,19 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     }
   }
 
-  const onChange = (e) => {
-    setNewTodo({ ...newTodo, [e.target.id]: e.target.value })
-  }
-
-  const callCreateTodoApi = async() => {
-    try {
-      const res = await axios.post('/todos',
-        newTodo,
-        { headers: { Authorization: USER_TOKEN } })
-      if (res.status === 200) {
-        return res.data.data
-      }
-    } catch (error) {
-      alert(error)
-    }
-  }
-
-  const callDeleteTodoApi = async(id) => {
-    try {
-      const res = await axios.delete(`/todos/${id}`,
-        { headers: { Authorization: USER_TOKEN } })
-      if (res.status === 200) {
-        return res.data.data
-      }
-    } catch (error) {
-      throw new Error('abc')
-    }
-  }
-
   const onClickDelete = async(e) => {
     e.stopPropagation()
     const clickedId = e.target.closest('li').id
-    callDeleteTodoApi(clickedId)
+    callDeleteTodo(USER_TOKEN, clickedId)
+    todoDelete(clickedId)
     if (params['*'].includes(clickedId)) {
       navigate('/')
     }
-    todoDelete(clickedId)
   }
 
-  const onSubmit = async() =>{
-    const data = await callCreateTodoApi()
-    todoAddOrUpdate(data)
+  const onClickCreate = async() =>{
+    const response = await callCreateTodo(USER_TOKEN, newTodo)
+    todoAddOrUpdate(response.data.data)
     formRef.current.reset()
   }
 
@@ -104,7 +80,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
             onChange={onChange}
             placeholder='할일의 내용을 입력해주세요.'></input>
         </form>
-        <button onClick={onSubmit}>등록하기</button>
+        <button onClick={onClickCreate}>등록하기</button>
       </section>
     </>
   )
