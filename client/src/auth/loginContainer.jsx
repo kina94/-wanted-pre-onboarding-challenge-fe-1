@@ -2,13 +2,13 @@ import axios from 'axios';
 import React, {useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Auth from './auth';
-const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function LoginContainer() {
 
   const navigate = useNavigate()
 
   useEffect(()=>{
+    const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
     if(USER_TOKEN){
       navigate('/')
     }
