@@ -13,7 +13,7 @@ function SignUpContainer() {
         try {
             const res = await axios.post('/users/create', user)
             if (res.status === 200) {
-                alert('계정이 성공적으로 생성되었습니다.')
+                alert(res.data.message)
                 navigate('/login')
                 return res
             }
