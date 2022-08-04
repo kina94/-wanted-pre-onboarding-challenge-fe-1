@@ -1,19 +1,11 @@
 import axios from 'axios';
-import React, {useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { callLoginApi } from '../service/authService';
 import Auth from './auth';
 
 function LoginContainer() {
-
   const navigate = useNavigate()
-
-  useEffect(()=>{
-    const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
-    if(USER_TOKEN){
-      navigate('/')
-    }
-  })
-
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -24,20 +16,23 @@ function LoginContainer() {
   }
 
   const onLoginSubmit = async () => {
-    try {
-      const res = await axios.post('/users/login', user)
-      if (res.status === 200) {
-        localStorage.setItem('token', JSON.stringify(res.data.token))
-        navigate('/')
-      }
-    } catch (error) {
-      alert(error.response.data.details)
+    const response = await callLoginApi(user)
+    if (response) {
+      localStorage.setItem('token', JSON.stringify(response.data.token))
+      navigate('/')
     }
   }
 
   const onClickSignUp = () => {
     navigate('/sign_up')
   }
+
+  useEffect(() => {
+    const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
+    if (USER_TOKEN) {
+      navigate('/')
+    }
+  })
 
   return (
     <Auth title='Login'

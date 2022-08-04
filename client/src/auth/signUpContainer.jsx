@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'
 import Auth from './auth'
+import { callSignUpApi } from '../service/authService';
 
 function SignUpContainer() {
     const navigate = useNavigate()
@@ -9,16 +10,12 @@ function SignUpContainer() {
         email: '',
         password: ''
     })
-    const onClickSignUp = async (e) => {
-        try {
-            const res = await axios.post('/users/create', user)
-            if (res.status === 200) {
-                alert(res.data.message)
-                navigate('/login')
-                return res
-            }
-        } catch(error) {
-            alert(error.response.data.details)
+
+    const onClickSignUp = async () => {
+        const response = await callSignUpApi(user)
+        if (response) {
+            alert(response.data.message)
+            navigate('/login')
         }
     }
 
