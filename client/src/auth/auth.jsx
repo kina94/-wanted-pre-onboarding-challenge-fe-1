@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { submitValidator } from '../utils/submitValidator';
 
 function Auth({ onSubmit, onClick, onChange, title, user }) {

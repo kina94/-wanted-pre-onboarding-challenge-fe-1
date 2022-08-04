@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Routes, Route } from 'react-router-dom';
-import axios from 'axios';
 import TodoList from './todoList';
 import Todo from './todo';
 import './todos.css'
@@ -20,10 +19,10 @@ function TodoContainer() {
         }
     }, [])
 
-    //fetch todoList
-    const getTodos = async() => {
+    //투두리스트 불러오기
+    const getTodos = async () => {
         const response = await callGetTodos(USER_TOKEN)
-        if(response){
+        if (response) {
             setTodoList(response.data.data)
         }
     }
@@ -72,7 +71,9 @@ function TodoContainer() {
                     <hr></hr>
                     <Routes>
                         <Route exact={true} path='/' element={<>Todo List에서 상세 조회할 할일을 선택해주세요</>} />
-                        <Route exact={true} path=':num/*' element={<Todo todoAddOrUpdate={todoAddOrUpdate}/>} />
+                        <Route exact={true} path=':num/*' element={<Todo
+                            USER_TOKEN={USER_TOKEN}
+                            todoAddOrUpdate={todoAddOrUpdate} />} />
                     </Routes>
                 </section>
             </section>

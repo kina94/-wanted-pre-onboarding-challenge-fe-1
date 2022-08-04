@@ -14,6 +14,7 @@ function LoginContainer() {
     setUser({ ...user, [e.target.id]: e.target.value })
   }
 
+  //로그인 버튼 클릭
   const onLoginSubmit = async () => {
     const response = await callLoginApi(user)
     if (response) {
@@ -22,6 +23,7 @@ function LoginContainer() {
     }
   }
 
+  // 회원가입 버튼 클릭
   const onClickSignUp = () => {
     navigate('/sign_up')
   }

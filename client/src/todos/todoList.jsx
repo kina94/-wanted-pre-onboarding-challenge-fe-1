@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { callCreateTodo, callDeleteTodo } from '../service/todoService';
@@ -16,6 +15,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     setNewTodo({ ...newTodo, [e.target.id]: e.target.value })
   }
 
+  // 아이디에 따라 수정 / 상세정보 보기 전환
   const onClickTodo = (e) => {
     const clickedId = e.target.closest('li').id
     if(e.target.id === 'edit'){
@@ -25,6 +25,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     }
   }
 
+  // 투두 삭제 버튼 클릭
   const onClickDelete = async(e) => {
     e.stopPropagation()
     const clickedId = e.target.closest('li').id
@@ -35,6 +36,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     todoDelete(clickedId)
   }
 
+  // 투두 생성
   const onClickCreate = async() =>{
     const response = await callCreateTodo(USER_TOKEN, newTodo)
     todoAddOrUpdate(response.data.data)

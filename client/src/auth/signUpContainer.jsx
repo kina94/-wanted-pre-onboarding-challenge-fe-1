@@ -10,6 +10,7 @@ function SignUpContainer() {
         password: ''
     })
 
+    // 회원가입 버튼 클릭
     const onClickSignUp = async () => {
         const response = await callSignUpApi(user)
         if (response) {

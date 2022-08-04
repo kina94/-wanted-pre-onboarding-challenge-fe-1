@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
 import { useParams, useNavigate } from 'react-router-dom';
 import { callGetTodoById, callUpdateTodo } from '../service/todoService.js'
-const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
-function Todo({todoAddOrUpdate}) {
+function Todo({todoAddOrUpdate, USER_TOKEN}) {
   const params = useParams()
   const navigate = useNavigate()
   const [todo, setTodo] = useState({})
 
+  //투두 상세 정보 불러오기
   const getTodo = async(id) =>{
     const response = await callGetTodoById(USER_TOKEN, id)
     if(response){
@@ -16,6 +15,7 @@ function Todo({todoAddOrUpdate}) {
     }
   }
 
+  // 수정하기 버튼 클릭
   const onClickModify = async() => {
     const response = await callUpdateTodo(USER_TOKEN, params.num, todo)
     todoAddOrUpdate(response.data.data)
@@ -30,6 +30,7 @@ function Todo({todoAddOrUpdate}) {
     getTodo(params.num)
   }, [params.num])
 
+  // 수정 / 상세보기 url에 따라 뷰 전환
   const switchViewByMode = () => {
     if (params['*'] === 'edit') {
       return (
