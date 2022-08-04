@@ -1,7 +1,7 @@
 # 프론트엔드 챌린지 8월 - CRUD w React Query 사전 과제
 * * *
 
-## 폴더 
+## 폴더 구조
 ![image](https://user-images.githubusercontent.com/66938939/182807427-cf0b1b91-1c2f-45f9-8803-b8780263e919.png)
 
 * * *
