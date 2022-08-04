@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { callCreateTodo, callDeleteTodo } from '../service/todoService';
 
-function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
+function TodoList({todoAdd, todoDelete, todoList, USER_TOKEN }) {
   const formRef = useRef()
   const params = useParams()
   const navigate = useNavigate()
@@ -37,9 +37,9 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
   }
 
   // 투두 생성
-  const onClickCreate = async() =>{
+  const onClickCreate = async(e) =>{
     const response = await callCreateTodo(USER_TOKEN, newTodo)
-    todoAddOrUpdate(response.data.data)
+    todoAdd(response.data.data)
     formRef.current.reset()
   }
 
@@ -49,7 +49,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
         <ul className='items'>
           {
             Object.values(todoList).map((item, key) => (
-              <li className='items__row' id={item.id} >
+              <li className='items__row' key={key} id={item.id} >
                 <div className='item' onClick={onClickTodo}>
                   {item.title}
                   <div className='todos-buttons'>

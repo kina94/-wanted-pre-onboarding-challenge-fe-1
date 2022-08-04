@@ -7,7 +7,7 @@ import { callGetTodos } from '../service/todoService';
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function TodoContainer() {
-    const [todoList, setTodoList] = useState({})
+    const [todoList, setTodoList] = useState([])
 
     const navigate = useNavigate();
 
@@ -27,21 +27,25 @@ function TodoContainer() {
         }
     }
 
-    //todo 삭제 추가 수정 이벤트
-    const todoAddOrUpdate = (data) => {
-        setTodoList(todoList => {
-            const update = { ...todoList }
-            update[data.id] = data
-            return update
-        })
+    //todo 삭제 추가 수정 수정 이벤트
+    const todoAdd = (data) => {
+        const update = {...todoList}
+        update[Object.keys(update).length] = data
+        setTodoList(update)
     }
 
-    const todoDelete = (id) => {
-        setTodoList(todoList => {
-            const update = { ...todoList }
-            delete update[id]
-            return update
-        })
+    const todoModify = (data) =>{
+        const update = {...todoList}
+        const id = Object.keys(update).filter(key=>update[key].id===data.id)
+        update[id] = data
+        setTodoList(update)
+    }
+
+    const todoDelete = (clickedId) => {
+        const update = {...todoList}
+        const id = Object.keys(update).filter(key=>update[key].id===clickedId)
+        delete update[id]
+        setTodoList(update)
     }
 
     //로그아웃 이벤트
@@ -61,7 +65,7 @@ function TodoContainer() {
                     <h1>Todo List</h1>
                     <hr></hr>
                     <TodoList USER_TOKEN={USER_TOKEN}
-                        todoAddOrUpdate={todoAddOrUpdate}
+                        todoAdd={todoAdd}
                         todoDelete={todoDelete}
                         todoList={todoList}
                     ></TodoList>
@@ -73,7 +77,7 @@ function TodoContainer() {
                         <Route exact={true} path='/' element={<>Todo List에서 상세 조회할 할일을 선택해주세요</>} />
                         <Route exact={true} path=':num/*' element={<Todo
                             USER_TOKEN={USER_TOKEN}
-                            todoAddOrUpdate={todoAddOrUpdate} />} />
+                            todoModify={todoModify} />} />
                     </Routes>
                 </section>
             </section>
