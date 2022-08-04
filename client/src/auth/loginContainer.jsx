@@ -1,11 +1,18 @@
 import axios from 'axios';
-import React, {useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Auth from './auth';
+const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function LoginContainer() {
 
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    if(USER_TOKEN){
+      navigate('/')
+    }
+  })
 
   const [user, setUser] = useState({
     email: '',
