@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'
 import Auth from './auth'
-import { callSignUpApi } from '../service/authService';
+import { callSignUpApi } from '../../service/authService';
 
 function SignUpContainer() {
     const navigate = useNavigate()

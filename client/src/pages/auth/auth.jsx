@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom';
-import { submitValidator } from '../utils/submitValidator';
+import { submitValidator } from '../../utils/submitValidator';
 
 function Auth({ onSubmit, onClick, onChange, title, user }) {
   const location = useLocation().pathname

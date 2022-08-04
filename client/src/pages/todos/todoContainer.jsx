@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from 'react-router-dom';
 import TodoList from './todoList';
 import Todo from './todo';
 import './todos.css'
-import { callGetTodos } from '../service/todoService';
+import { callGetTodos } from '../../service/todoService';
 const USER_TOKEN = JSON.parse(localStorage.getItem('token'))
 
 function TodoContainer() {

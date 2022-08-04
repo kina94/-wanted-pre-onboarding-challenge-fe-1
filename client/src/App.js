@@ -1,9 +1,9 @@
 import './App.css';
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import LoginContainer from './auth/loginContainer';
-import SignUpContainer from './auth/signUpContainer';
-import TodoContainer from './todos/todoContainer';
+import LoginContainer from './pages/auth/loginContainer';
+import SignUpContainer from './pages/auth/signUpContainer';
+import TodoContainer from './pages/todos/todoContainer';
 
 function App() {
   return (

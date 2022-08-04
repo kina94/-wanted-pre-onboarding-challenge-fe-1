@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import { callCreateTodo, callDeleteTodo } from '../service/todoService';
+import { callCreateTodo, callDeleteTodo } from '../../service/todoService';
 
 function TodoList({todoAdd, todoDelete, todoList, USER_TOKEN }) {
   const formRef = useRef()

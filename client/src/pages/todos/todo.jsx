@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { callGetTodoById, callUpdateTodo } from '../service/todoService.js'
+import { callGetTodoById, callUpdateTodo } from '../../service/todoService.js'
 
 function Todo({todoModify, USER_TOKEN}) {
   const params = useParams()
