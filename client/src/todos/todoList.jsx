@@ -53,7 +53,7 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     e.stopPropagation()
     const clickedId = e.target.closest('li').id
     callDeleteTodoApi(clickedId)
-    if (params['*'] === clickedId) {
+    if (params['*'].includes(clickedId)) {
       navigate('/')
     }
     todoDelete(clickedId)
@@ -75,11 +75,11 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
                 <div className='item' onClick={onClickTodo}>
                   {item.title}
                   <div className='todos-buttons'>
-                    <button
+                    <button id='edit'
                       onClick={onClickTodo}>
                       <i className="fas fa-pen" id='edit'></i>
                     </button>
-                    <button
+                    <button id='delete'
                       onClick={onClickDelete}>
                       <i className="fas fa-trash-alt" id='delete'></i>
                     </button>

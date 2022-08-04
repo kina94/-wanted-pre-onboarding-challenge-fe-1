@@ -32,6 +32,7 @@ function Todo({todoAddOrUpdate}) {
       if (res.status === 200) {
         const data = res.data.data
         todoAddOrUpdate(data)
+        navigate(`/${params.num}`)
       }
     } catch (error) {
       alert(error)
@@ -40,7 +41,6 @@ function Todo({todoAddOrUpdate}) {
  
   useEffect(() => {
     getTodoById(params.num)
-    console.log(params)
   }, [params.num])
 
   const switchViewByMode = () => {
