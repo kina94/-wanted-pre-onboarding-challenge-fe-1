@@ -13,7 +13,8 @@ const setHeaders = (token) => {
 //투두 리스트 불러오기
 export const callGetTodos = async(token) => {
     try {
-        const res = await axios.get(`${BASE_URL}`, setHeaders(token))
+        const res = await axios.get(`${BASE_URL}`,
+        setHeaders(token))
         if (res.status === 200) {
             return res
         }
@@ -25,7 +26,8 @@ export const callGetTodos = async(token) => {
 //아이디로 투두 상세 내용 조회
 export const callGetTodoById = async(token, id) => {
     try {
-        const res = await axios.get(`${BASE_URL}/${id}`, setHeaders(token))
+        const res = await axios.get(`${BASE_URL}/${id}`,
+        setHeaders(token))
         if (res.status === 200) {
             return res
         }
@@ -68,7 +70,7 @@ export const callDeleteTodo = async(token, id) => {
         const res = await axios.delete(`${BASE_URL}/${id}`,
         setHeaders(token))
         if (res.status === 200) {
-            return res
+            return res.data.data
         }
     } catch (error) {
         alert(error.response.data.details)

@@ -29,10 +29,10 @@ function TodoList({todoAddOrUpdate, todoDelete, todoList, USER_TOKEN }) {
     e.stopPropagation()
     const clickedId = e.target.closest('li').id
     callDeleteTodo(USER_TOKEN, clickedId)
-    todoDelete(clickedId)
     if (params['*'].includes(clickedId)) {
       navigate('/')
     }
+    todoDelete(clickedId)
   }
 
   const onClickCreate = async() =>{
