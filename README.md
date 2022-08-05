@@ -30,7 +30,7 @@
     yarn addd concurrently
     ```
     
-    - server 폴더를 만들고 API Repository를 옮긴후 cd 명령어를 통해 server 폴더로 접근한 후 yarn, yarn start를 차례로 입력하여 서버가 잘 작동하는지 확인한다.
+    - server 폴더를 만들고 API Repository를 옮긴다. cd 명령어를 통해 server 폴더로 접근한 후 yarn, yarn start를 차례로 입력하여 서버가 잘 작동하는지 확인한다.
     ```javascript
     cd server
     yarn
