@@ -25,7 +25,7 @@
     ❓ concurrently : 리액트 서버와 노드 서버를 동시에 실행하기 위한 모듈
     
     ```javascript
-    yarn  create-react-app client --template typescript
+    yarn create react-app client --template typescript
     yarn add express
     yarn addd concurrently
     ```
@@ -80,8 +80,8 @@
 </br>
 
 > ### Assignment 1 - Login / SignUp
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/pages/auth">👉 관련 Pages Repository 바로가기</a></br>
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/authService.js">👉 관련 API Repository 바로가기</a>
+> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/views">👉 관련 Pages Repository 바로가기</a></br>
+> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/authService.ts">👉 관련 API Repository 바로가기</a>
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
   - [ ] 로그인, 회원가입을 별도의 경로로 분리해도 무방합니다
   - [ ] 최소한 이메일, 비밀번호 input, 제출 button을 갖도록 구성해주세요
@@ -97,8 +97,8 @@
 </br>
 
 > ### Assignment 2 - Todo List
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/pages/todos">👉 관련 Pages Repository 바로가기</a></br>
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/todoService.js">👉 관련 API Repository 바로가기</a>
+> #### <a href="https://https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/views">👉 관련 Pages Repository 바로가기</a></br>
+> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/todoService.ts">👉 관련 API Repository 바로가기</a>
 - Todo List API를 호출하여 Todo List CRUD 기능을 구현해주세요
   - [ ] 목록 / 상세 영역으로 나누어 구현해주세요 
   - [ ] Todo 목록을 볼 수 있습니다.
