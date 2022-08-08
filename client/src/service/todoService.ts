@@ -1,7 +1,10 @@
+import { TodoInput } from './../../../server/types/todos';
 import axios from 'axios'
+import {Todo} from '../types/todo'
 const BASE_URL = '/todos'
+const token = localStorage.getItem('token') as string
 
-const setHeaders = (token) => {
+const setHeaders = () => {
     const header = {
         headers: {
             Authorization: token
@@ -11,68 +14,68 @@ const setHeaders = (token) => {
 }
 
 //투두 리스트 불러오기
-export const callGetTodos = async(token) => {
+export const callGetTodos = async() => {
     try {
         const res = await axios.get(`${BASE_URL}`,
-        setHeaders(token))
+        setHeaders())
         if (res.status === 200) {
             return res
         }
-    } catch (error) {
+    } catch (error: any) {
         alert(error.response.data.details)
     }
 }
 
 //아이디로 투두 상세 내용 조회
-export const callGetTodoById = async(token, id) => {
+export const callGetTodoById = async(id:string | undefined) => {
     try {
         const res = await axios.get(`${BASE_URL}/${id}`,
-        setHeaders(token))
+        setHeaders())
         if (res.status === 200) {
             return res
         }
-    } catch (error) {
+    } catch (error: any) {
         alert(error.response.data.details)
     }
 }
 
 //투두 생성
-export const callCreateTodo = async(token, params) => {
+export const callCreateTodo = async(params: TodoInput) => {
     try {
         const res = await axios.post(`${BASE_URL}`,
         params,
-        setHeaders(token))
+        setHeaders())
         if (res.status === 200) {
             return res
         }
-    } catch (error) {
+    } catch (error: any) {
         alert(error.response.data.details)
     }
 }
 
 //투두 수정
-export const callUpdateTodo = async(token, id, params) => {
+export const callUpdateTodo = async(id:string | undefined, params: Todo) => {
     try {
         const res = await axios.put(`${BASE_URL}/${id}`,
         params,
-        setHeaders(token))
+        setHeaders())
         if (res.status === 200) {
             return res
         }
-    } catch (error) {
+    } catch (error: any) {
         alert(error.response.data.details)
     }
 }
 
 //투두 삭제
-export const callDeleteTodo = async(token, id) => {
+export const callDeleteTodo = async(id:string) => {
     try {
         const res = await axios.delete(`${BASE_URL}/${id}`,
-        setHeaders(token))
+        setHeaders())
         if (res.status === 200) {
             return res.data.data
         }
-    } catch (error) {
+    } catch (error:any) {
         alert(error.response.data.details)
     }
 }

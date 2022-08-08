@@ -1,5 +1,12 @@
+*{
+  box-sizing: border-box;
+  word-break:keep-all;
+  scroll-behavior: smooth;
+}
+
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -28,11 +35,148 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.wrapper{
+  width:100%;
+  height:100vh;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction:column;
+  padding-bottom:120px;
+}
+
+.content{
+  background-color:white;
+  padding-bottom:5px;
+  max-width:400px;
+  padding: 30px;
+  background-color:white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius:8px;
+  position:relative;
+  z-index:10;
+  margin:5px;
+}
+
+input{
+  width:100%;
+  height:40px;
+  padding : 0.7em;
+  margin:0.2em;
+  border : 1px solid #e2e2e2;
+  border-radius: 5px;
+}
+
+ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.content .button-group {
+  list-style:none;
+  display:flex;
+  margin:0.5em 0;
+  padding:0;
+  justify-content:flex-end;
+}
+
+button{
+  cursor:pointer;
+  margin:0 0.2em;
+  height:35px;
+}
+
+.button-group > button {
+  min-width:80px;
+}
+
+header{
+  display:flex;
+  justify-content:right;
+  align-items:center;
+  width:100%;
+  position:fixed;
+  top:0;
+  background-color: #3AB4F2;
+  padding:0.5em;
+}
+
+.todo-body{
+  padding-top:5em;
+  display:flex;
+  height:100%;
+  width:100%;
+
+}
+
+.todo-bottom{
+  position:fixed;
+  bottom:0;
+  width:50%;
+  padding:1em;
+}
+
+.todo-bottom form{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.todo-bottom button{
+  margin:0.3em;
+  width:100%;
+  background-color:#3AB4F2;
+  border:none;
+  color:white;
+  font-weight:bold;
+  height:50px;
+  font-size:18px;
+  border-radius:5px;
+}
+
+.todo-bottom button:hover{
+  opacity:0.8;
+}
+
+.todo-list{
+  width:50%;
+  border-right: 1px solid whitesmoke;
+}
+
+.todos{
+  width:50%;
+}
+
+.item:hover{
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  height:100%;
+  justify-content: space-between;
+  padding:8px 32px;
+}
+
+
+.todos-buttons > button{
+  border:none;
+  background-color:transparent;
+  font-size:16px;
+  transition: all 50ms ease-in;
+}
+
+.todos-buttons > button:hover{
+  color:#3AB4F2;
+  transform: scale(1.1);
+}
+
+.todo-content{
+  padding: 0 1em;
+  text-align:left;
+  display:flex;
+  justify-content: space-between;
 }
