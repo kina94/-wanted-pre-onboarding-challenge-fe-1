@@ -2,14 +2,14 @@
 * * *
 
 ## 폴더 구조
-![image](https://user-images.githubusercontent.com/66938939/182807427-cf0b1b91-1c2f-45f9-8803-b8780263e919.png)
+![image](https://user-images.githubusercontent.com/66938939/183501171-483f465a-eecd-470e-a889-4c9c504cff47.png)
 
 * * *
 ## 주요 기술
 > ### BackEnd
 - NodeJs, TypeScript
 > ### FrontEnd
-- React Js, HTML, CSS, JavaScript* (TypeScript로 리팩토링 예정,,, 열심히 강의를 듣고 있다😭)
+- React Js, HTML, CSS, TypeScript* (TypeScript로 리팩토링 1차 완료.. 공부 중이라 어설프게 리팩토링 된 상태... 열심히 강의를 듣자😭)
 * * *
 
 ## 구현 사항
@@ -25,7 +25,7 @@
     ❓ concurrently : 리액트 서버와 노드 서버를 동시에 실행하기 위한 모듈
     
     ```javascript
-    yarn create react-app client
+    yarn  create-react-app client --template typescript
     yarn add express
     yarn addd concurrently
     ```
@@ -60,6 +60,7 @@
     ```
     
     - src 폴더 내에 프록시를 설정할 setupProxy.js를 생성한다. 사용할 API base url이 '/users'와 '/todos'고 포트 번호가 8080이기 때문에 아래와 같이 설정한다.
+    - Typescript 환경이지만 setupProxy는 js로 작성해도 자동으로 읽힌다.
     
      ![image](https://user-images.githubusercontent.com/66938939/182822350-3ff63b54-8108-4e2e-a190-3d3d80889b85.png)
      
