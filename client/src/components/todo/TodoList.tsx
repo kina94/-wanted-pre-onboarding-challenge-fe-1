@@ -20,6 +20,7 @@ function TodoList() {
     },
   ]);
 
+  //유저 토큰이 없을 경우 로그인 화면으로 리디렉션
   useEffect(() => {
     const USER_TOKEN = localStorage.getItem("token");
     if (!USER_TOKEN) {
