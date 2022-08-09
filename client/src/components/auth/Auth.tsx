@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { callLoginApi, callSignUpApi } from "../service/authService";
-import { User } from "../types/auth";
-import { submitValidator } from "../utils/submitValidator";
-import Header from "./layout/Header";
+import { callLoginApi, callSignUpApi } from "../../service/authService";
+import { User } from "../../types/auth";
+import { submitValidator } from "../../utils/submitValidator";
+import Header from "../layout/Header";
 interface Props {
   title: string;
 }
