@@ -1,10 +1,12 @@
-import './App.css';
-import SetupRouter from './router/SetupRouter';
+import "./App.css";
+import SetupRouter from "./router/SetupRouter";
 
 function App() {
   return (
     <div className="App">
-      <SetupRouter/>
+      <section className="h-full w-full flex flex-wrap">
+        <SetupRouter />
+      </section>
     </div>
   );
 }
