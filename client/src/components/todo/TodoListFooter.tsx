@@ -5,7 +5,7 @@ interface Props {
   handleTodoAdd: (todo: Todo) => void
 }
 
-function TodoAdd({handleTodoAdd} : Props) {
+function TodoListFooter({handleTodoAdd} : Props) {
   const formRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
@@ -51,4 +51,4 @@ function TodoAdd({handleTodoAdd} : Props) {
   );
 }
 
-export default TodoAdd;
+export default TodoListFooter;

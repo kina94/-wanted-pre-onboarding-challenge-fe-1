@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callGetTodos } from "../../service/todoService";
 import { Todo } from "../../types/todo";
-import TodoFooter from "./TodoFooter";
-import TodoHeader from "./TodoHeader";
+import TodoListFooter from "./TodoListFooter";
+import TodoListHeader from "./TodoListHeader";
 import TodoInfo from "./TodoInfo";
 import TodoTitle from "./TodoTitle";
 
@@ -71,7 +71,7 @@ function TodoList() {
 
   return (
     <section className="min-h-96 overflow-hidden bg-white w-3/4 m-auto shadow-lg rounded-md p-5">
-      <TodoHeader />
+      <TodoListHeader />
       <hr />
       <section className="h-2/3 mt-10 mb-10">
         <ul className="items">
@@ -94,7 +94,7 @@ function TodoList() {
       </section>
       <hr></hr>
       <section className="mt-3">
-        <TodoFooter handleTodoAdd={handleTodoAdd} />
+        <TodoListFooter handleTodoAdd={handleTodoAdd} />
       </section>
     </section>
   );

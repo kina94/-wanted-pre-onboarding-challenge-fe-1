@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../layout/Header";
 
-function TodoHeader() {
+function TodoListHeader() {
   const navigate = useNavigate();
 
   //로그아웃 이벤트
@@ -23,4 +23,4 @@ function TodoHeader() {
   );
 }
 
-export default TodoHeader;
+export default TodoListHeader;
