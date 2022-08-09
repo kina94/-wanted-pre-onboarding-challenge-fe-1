@@ -1,95 +1,89 @@
-import React, { useRef, useState } from "react";
-import { Params, useNavigate, useParams } from "react-router-dom";
-import { callCreateTodo, callDeleteTodo } from "../service/todoService";
-import { Todo, TodoInput } from "../types/todo";
-interface Props {
-  todoList: Todo[];
-  todoAdd: (todo: Todo) => void;
-  todoDelete: (clickedId: string) => void;
-}
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { callGetTodos } from "../service/todoService";
+import { Todo } from "../types/todo";
+import TodoAdd from "./TodoAdd";
+import TodoInfo from "./TodoInfo";
+import TodoTitle from "./TodoTitle";
 
-function TodoList({todoList, todoAdd, todoDelete }: Props) {
-  const formRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
-  const {'*':action} = useParams();
+function TodoList() {
   const navigate = useNavigate();
+  const { "*": todoId } = useParams();
+  const [todoList, setTodoList] = useState<Todo[]>([
+    {
+      title: "",
+      content: "",
+      createdAt: "",
+      updatedAt: "",
+      id: "",
+    },
+  ]);
 
-  const [newTodo, setNewTodo] = useState<TodoInput>({
-    title: "",
-    content: "",
-  });
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setNewTodo({ ...newTodo, [e.target.id]: e.target.value });
-  };
-
-  // 수정 / 상세정보 보기 전환
-  const onClickTodo = (e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    const clickedId = e.currentTarget.closest('li')!.id;
-    if (e.currentTarget.id === "edit") {
-      navigate(`/${clickedId}/edit`);
+  useEffect(() => {
+    const USER_TOKEN = localStorage.getItem("token");
+    if (!USER_TOKEN) {
+      navigate("/login");
     } else {
-      navigate(`/${clickedId}`);
+      getTodos();
+    }
+  }, []);
+
+  //투두리스트 불러오기
+  const getTodos = async () => {
+    const response = await callGetTodos();
+    if (response) {
+      setTodoList(response.data.data);
     }
   };
 
-  // 투두 삭제 버튼 클릭
-  const onClickDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    const clickedId: string = e.currentTarget.closest("li")!.id;
-    callDeleteTodo(clickedId);
-    if (action?.includes(clickedId)) {
-      navigate("/");
-    }
-    todoDelete(clickedId);
+  //todo 삭제 추가 수정 수정 이벤트
+  const findTodoId = (update: Todo[], targetId: Todo | string): any => {
+    const keys = Object.keys(update) as (keyof typeof update)[];
+    const id: any = keys.find((key: any) => update[key].id === targetId);
+    return id;
   };
 
-  // 투두 생성
-  const onClickCreate = async () => {
-    const response = await callCreateTodo(newTodo);
-    todoAdd(response!.data.data);
-    formRef.current.reset();
+  const todoAdd = (todo: Todo): void => {
+    const update: Todo[] = { ...todoList };
+    update[Object.keys(update).length] = todo;
+    setTodoList(update);
+  };
+
+  const todoModify = (todo: Todo): void => {
+    const update: Todo[] = { ...todoList };
+    const id: any = findTodoId(update, todo.id);
+    update[id] = todo;
+    setTodoList(update);
+  };
+
+  const todoDelete = (clickedId: string): void => {
+    const update: Todo[] = { ...todoList };
+    const id: any = findTodoId(update, clickedId);
+    delete update[id];
+    setTodoList(update);
   };
 
   return (
     <>
-      <section className="todos-content">
+      <section className="h-2/3 mt-10 mb-10">
         <ul className="items">
           {Object.values(todoList).map((item, key) => (
-            <li className="items__row" key={key} id={item.id}>
-              <div className="item" onClick={onClickTodo}>
-                {item.title}
-                <div className="todos-buttons">
-                  <button id="edit" onClick={onClickTodo}>
-                    <i className="fas fa-pen" id="edit"></i>
-                  </button>
-                  <button id="delete" onClick={onClickDelete}>
-                    <i className="fas fa-trash-alt" id="delete"></i>
-                  </button>
-                </div>
-              </div>
-              <hr></hr>
+            <li className="mb-5 ml-3 mr-3 " key={key} id={item.id}>
+              <section className="flex w-full">
+                <TodoTitle title={item.title} todoDelete={todoDelete} />
+              </section>
+              <section className="w-full text-left mt-2">
+                {todoId?.includes(item.id) && (
+                  <TodoInfo todoModify={todoModify} />
+                )}
+              </section>
             </li>
           ))}
         </ul>
       </section>
-
-      <section className="todo-bottom">
-        <form ref={formRef}>
-          <input
-            type="text"
-            id="title"
-            onChange={onChange}
-            placeholder="할일의 제목을 입력해주세요."
-          ></input>
-          <input
-            type="text"
-            id="content"
-            onChange={onChange}
-            placeholder="할일의 내용을 입력해주세요."
-          ></input>
-        </form>
-        <button onClick={onClickCreate}>등록하기</button>
+      <hr></hr>
+      <section className="mt-3">
+        <TodoAdd todoAdd={todoAdd}></TodoAdd>
       </section>
     </>
   );

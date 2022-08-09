@@ -1,77 +1,101 @@
-import React, { ReactElement, useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
-import { callGetTodoById, callUpdateTodo } from '../service/todoService';
+import React, { ReactElement, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { callGetTodoById, callUpdateTodo } from "../service/todoService";
 import { Todo } from "../types/todo";
 
 interface Props {
   todoModify: (todo: Todo) => void;
 }
 
-function TodoInfo({todoModify}:Props) {
-  const {num, '*':action} = useParams()
-  const navigate = useNavigate()
-  const [todo, setTodo] = useState<Todo>(
-    {
-      title: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      id: "",
-    });
+function TodoInfo({ todoModify }: Props) {
+  const { "*": action } = useParams();
+  const todoId: string | undefined = action?.split("/")[0];
+  const navigate = useNavigate();
+  const [todo, setTodo] = useState<Todo>({
+    title: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    id: "",
+  });
 
   //투두 상세 정보 불러오기
-  const getTodo = async(id?: string) =>{
-    const response = await callGetTodoById(id)
-    if(response){
-      setTodo(response.data.data)
+  const getTodo = async (id?: string) => {
+    const response = await callGetTodoById(id);
+    if (response) {
+      setTodo(response.data.data);
     }
-  }
+  };
 
   // 수정하기 버튼 클릭
-  const onClickModify = async() => {
-    const response = await callUpdateTodo(num, todo)
-    todoModify(response!.data.data)
-    navigate(`/${num}`)
-  }
+  const onClickModify = async () => {
+    const response = await callUpdateTodo(todoId, todo);
+    todoModify(response!.data.data);
+    navigate(`/${todoId}`);
+  };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>):void =>{
-    setTodo({...todo, [e.target.id] : e.target.value})
-  }
- 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setTodo({ ...todo, [e.target.id]: e.target.value });
+  };
+
   useEffect(() => {
-    getTodo(num)
-  }, [num])
+    getTodo(todoId);
+  }, [todoId]);
 
-    // 수정 / 상세보기 url에 따라 뷰 전환
-    const switchViewByMode = (): ReactElement => {
-      if (action === 'edit') {
-        return (
-          <div className='todo-edit'>
-            <form>
-              <input type='text' id='title' value={todo?.title} onChange={onChange}></input>
-              <input type='text' id='content' value={todo?.content} onChange={onChange}></input>
-            </form>
-            <button onClick={onClickModify}>수정하기</button>
-            <button onClick={()=>navigate(`/${num}`)}>취소하기</button>
+  // 수정 / 상세보기 url에 따라 뷰 전환
+  const switchViewByMode = (): ReactElement => {
+    if (action?.includes("edit")) {
+      return (
+        <>
+          <form>
+            <input
+              className="mb-1 bg-white border-none opacity-85 ext-indigo-600 text-md font-bold w-full"
+              type="text"
+              id="title"
+              value={todo?.title}
+              onChange={onChange}
+            ></input>
+            <input
+              className="bg-white border-none opacity-80 font-normal text-sm leading-normal w-full"
+              type="text"
+              id="content"
+              value={todo?.content}
+              onChange={onChange}
+            ></input>
+          </form>
+          <div className="flex justify-end mt-2">
+            <button
+              className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+              onClick={onClickModify}
+            >
+              수정하기
+            </button>
+            <button
+              className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+              onClick={() => navigate(`/${todoId}`)}
+            >
+              취소하기
+            </button>
           </div>
-        )
-      } else {
-        return (
-          <div className='todo'>
-            <h3>{todo.title}</h3>
-            <p>{todo.content}</p>
-          </div>
-        )
-      }
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p className="mb-1 text-indigo-600 text-md font-bold">{todo.title}</p>
+          <p className="font-normal text-sm leading-normal">{todo.content}</p>
+        </>
+      );
     }
-    
+  };
+
   return (
-    <section className='todo-content'>
-      <div className='todo'>
-        {switchViewByMode()}
+    <section>
+      <div className="p-5 uppercase rounded-md text-blueGray-600 bg-blueGray-200">
+      {switchViewByMode()}
       </div>
     </section>
-  )
+  );
 }
 
-export default TodoInfo
+export default TodoInfo;

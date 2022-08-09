@@ -14,7 +14,7 @@ function Login() {
   };
 
   //로그인 버튼 클릭
-  const onLoginSubmit = async() => {
+  const onLoginSubmit = async () => {
     const response = await callLoginApi(user);
     if (response) {
       localStorage.setItem("token", response.data.token);
