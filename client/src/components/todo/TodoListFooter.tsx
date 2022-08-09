@@ -12,7 +12,8 @@ function TodoListFooter({handleAddTodo} : Props) {
     content: "",
   });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //새로운 투두 입력 이벤트
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTodo({ ...newTodo, [e.target.id]: e.target.value });
   };
 

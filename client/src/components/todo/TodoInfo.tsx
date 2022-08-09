@@ -9,9 +9,9 @@ interface Props {
 }
 
 function TodoInfo({ index, handleUpdateTodo }: Props) {
+  const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
   const todoId: string | undefined = currentUrl?.split("/")[0];
-  const navigate = useNavigate();
   const [todo, setTodo] = useState<Todo>({
     title: "",
     content: "",

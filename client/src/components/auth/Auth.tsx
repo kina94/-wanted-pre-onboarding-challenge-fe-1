@@ -11,7 +11,7 @@ interface Props {
 function Auth({ title }: Props) {
   const navigate = useNavigate();
   const [user, setUser] = useState<User>({ email: "", password: "" });
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   //인풋 이벤트
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -26,16 +26,16 @@ function Auth({ title }: Props) {
   };
 
   // 회원가입 페이지로 이동
-  const onSignUpClick = (): void => {
+  const onSignUpClick = () => {
     navigate("/sign_up");
   };
 
   // 회원가입하기
-  const onSignUpSubmit = async() =>{
+  const onSignUpSubmit = async () => {
     const response = await callSignUpApi(user);
     alert(response?.data.message);
     navigate("/login");
-  }
+  };
 
   //토큰이 있는 경우 Login 또는 SignUp 페이지 접근 시 리디렉션
   useEffect(() => {
@@ -48,7 +48,7 @@ function Auth({ title }: Props) {
   {
     return (
       <div className="w-full bg-white min-h-500 md:w-4/12 m-auto shadow-lg rounded-md p-5">
-        <Header title={title}/>
+        <Header title={title} />
         <form className="form">
           <div className="relative flex w-full flex-wrap items-stretch mb-3">
             <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
@@ -79,9 +79,7 @@ function Auth({ title }: Props) {
         </form>
 
         <div className="flex justify-end">
-          {
-            pathname === '/login'
-          }
+          {pathname === "/login"}
           {pathname === "/login" && (
             <button
               className={
@@ -102,7 +100,7 @@ function Auth({ title }: Props) {
                 ? "mr-2 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 : "mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             }
-            onClick={pathname === '/sign_up' ? onSignUpSubmit : onSignUpClick}
+            onClick={pathname === "/sign_up" ? onSignUpSubmit : onSignUpClick}
             disabled={
               pathname === "/sign_up" && !submitValidator(user) ? true : false
             }
