@@ -47,7 +47,7 @@ function Auth({ title }: Props) {
 
   {
     return (
-      <div className="w-full bg-white min-h-500 md:w-4/12 m-auto shadow-lg rounded-md p-5">
+      <div className="w-full bg-white sm:w-8/12 md:w-4/12 m-auto shadow-lg rounded-md p-5">
         <Header title={title} />
         <form className="form">
           <div className="relative flex w-full flex-wrap items-stretch mb-3">
@@ -79,7 +79,7 @@ function Auth({ title }: Props) {
         </form>
 
         <div className="flex justify-end">
-          {pathname === "/login"}
+          
           {pathname === "/login" && (
             <button
               className={
@@ -94,19 +94,28 @@ function Auth({ title }: Props) {
               Login
             </button>
           )}
-          <button
-            className={
-              pathname === "/sign_up" && !submitValidator(user)
-                ? "mr-2 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                : "mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-            }
-            onClick={pathname === "/sign_up" ? onSignUpSubmit : onSignUpClick}
-            disabled={
-              pathname === "/sign_up" && !submitValidator(user) ? true : false
-            }
-          >
-            {pathname === "/sign_up" ? "Submit" : "SignUp"}
-          </button>
+
+          {pathname === "/sign_up" ? (
+            <button
+              className={
+                submitValidator(user)
+                  ? "mr-3 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  : "mr-3 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              }
+              onClick={onSignUpSubmit}
+              disabled={submitValidator(user) ? false : true}
+            >
+              Submit
+            </button>
+          ) : (
+            <button
+              className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              onClick={onSignUpClick}
+            >
+              SignUp
+            </button>
+          )}
+
         </div>
       </div>
     );
