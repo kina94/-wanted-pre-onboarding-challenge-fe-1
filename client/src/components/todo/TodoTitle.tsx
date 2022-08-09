@@ -1,57 +1,51 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callDeleteTodo } from "../../service/todoService";
+import { Todo } from "../../types/todo";
+
 interface Props {
-  title: string;
-  handleTodoDelete: (clickedId: string) => void;
+  todo: Todo;
+  index: number;
+  handleDeleteTodo: (todoIndex: number) => void;
 }
 
-function TodoTitle({ title, handleTodoDelete }: Props) {
+function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
   const navigate = useNavigate();
-  const { "*": todoId } = useParams();
+  const { "*": currentUrl } = useParams();
 
-  // 수정 / 상세정보 보기 전환
-  const onClickTodo = (
-    e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
-  ): void => {
-    e.stopPropagation();
-    const clickedId = e.currentTarget.closest("li")!.id;
-    if (e.currentTarget.id === "edit") {
-      navigate(`/${clickedId}/edit`);
-    } else if (todoId === clickedId) {
-      navigate("/");
-    } else {
-      navigate(`/${clickedId}`);
-    }
-  };
+  // 현재 보고 있는 투두가 삭제되면 리디렉션 : 투두 상세보기
+  const setTodoInfoView = () =>{
+    currentUrl === todo.id ? navigate('/') : navigate(`/${todo.id}`) 
+  }
+
+  //수정 모드 전환
+  const setTodoUpdateView = () =>{
+    navigate(`/${todo.id}/edit`);
+  }
 
   // 투두 삭제 버튼 클릭
-  const onTodoDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    const clickedId: string = e.currentTarget.closest("li")!.id;
-    callDeleteTodo(clickedId);
-    if (todoId?.includes(clickedId)) {
-      navigate("/");
-    }
-    handleTodoDelete(clickedId);
+  const onTodoDeleteClick = async() => {
+    callDeleteTodo(todo.id);
+    handleDeleteTodo(index)
+    currentUrl?.includes(todo.id) && navigate("/");
   };
 
   return (
     <>
       <div
         className="cursor-pointer w-full text-left text-base font-light leading-relaxed mt-0 mb-0 text-slate-600 hover:font-bold"
-        onClick={onClickTodo}
+        onClick={setTodoInfoView}
       >
         <span className="text-indigo-500">
           <i className="fas fa-check-circle"></i>
         </span>
-        <span className="ml-2">{title}</span>
+        <span className="ml-2">{todo.title}</span>
       </div>
       <div className="flex justify-end">
         <button
           className="mr-3 text-slate-500 hover:text-indigo-500"
           id="edit"
-          onClick={onClickTodo}
+          onClick={setTodoUpdateView}
         >
           <i className="fas fa-pen" id="edit"></i>
         </button>

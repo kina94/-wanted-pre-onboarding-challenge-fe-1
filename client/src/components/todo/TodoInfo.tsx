@@ -4,12 +4,13 @@ import { callGetTodoById, callUpdateTodo } from "../../service/todoService";
 import { Todo } from "../../types/todo";
 
 interface Props {
-  handleTodoModify: (todo: Todo) => void;
+  index: number;
+  handleUpdateTodo: (todoIndex: number, newTodo: Todo) => void;
 }
 
-function TodoInfo({ handleTodoModify }: Props) {
-  const { "*": action } = useParams();
-  const todoId: string | undefined = action?.split("/")[0];
+function TodoInfo({ index, handleUpdateTodo }: Props) {
+  const { "*": currentUrl } = useParams();
+  const todoId: string | undefined = currentUrl?.split("/")[0];
   const navigate = useNavigate();
   const [todo, setTodo] = useState<Todo>({
     title: "",
@@ -22,18 +23,17 @@ function TodoInfo({ handleTodoModify }: Props) {
   //투두 상세 정보 불러오기
   const getTodo = async (id?: string) => {
     const response = await callGetTodoById(id);
-    if (response) {
-      setTodo(response.data.data);
-    }
+    setTodo(response?.data.data);
   };
 
   // 수정하기 버튼 클릭
-  const onTodoModifyClick = async () => {
+  const onTodoUpdateClick = async () => {
     const response = await callUpdateTodo(todoId, todo);
-    handleTodoModify(response!.data.data);
+    handleUpdateTodo(index, response!.data.data);
     navigate(`/${todoId}`);
   };
 
+  //수정 내용 입력 이벤트
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setTodo({ ...todo, [e.target.id]: e.target.value });
   };
@@ -44,7 +44,7 @@ function TodoInfo({ handleTodoModify }: Props) {
 
   // 수정 / 상세보기 url에 따라 뷰 전환
   const switchViewByMode = (): ReactElement => {
-    if (action?.includes("edit")) {
+    if (currentUrl?.includes("edit")) {
       return (
         <>
           <form>
@@ -66,7 +66,7 @@ function TodoInfo({ handleTodoModify }: Props) {
           <div className="flex justify-end mt-2">
             <button
               className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-              onClick={onTodoModifyClick}
+              onClick={onTodoUpdateClick}
             >
               수정하기
             </button>

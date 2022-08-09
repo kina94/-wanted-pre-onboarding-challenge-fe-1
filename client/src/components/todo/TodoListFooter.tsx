@@ -2,11 +2,11 @@ import React, { useRef, useState } from "react";
 import { callCreateTodo } from "../../service/todoService";
 import { Todo, TodoInput } from "../../types/todo";
 interface Props {
-  handleTodoAdd: (todo: Todo) => void
+  handleAddTodo: (newTodo: Todo) => void;
 }
 
-function TodoListFooter({handleTodoAdd} : Props) {
-  const formRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
+function TodoListFooter({handleAddTodo} : Props) {
+  const formRef = useRef<any>('')
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -19,7 +19,7 @@ function TodoListFooter({handleTodoAdd} : Props) {
   // 투두 생성
   const onTodoAddClick = async () => {
     const response = await callCreateTodo(newTodo);
-    handleTodoAdd(response!.data.data);
+    handleAddTodo(response!.data.data);
     formRef.current.reset();
   };
 

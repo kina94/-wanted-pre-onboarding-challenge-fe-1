@@ -9,7 +9,7 @@ import TodoTitle from "./TodoTitle";
 
 function TodoList() {
   const navigate = useNavigate();
-  const { "*": todoId } = useParams();
+  const { "*": currentUrl } = useParams();
   const [todoList, setTodoList] = useState<Todo[]>([
     {
       title: "",
@@ -33,40 +33,28 @@ function TodoList() {
   //투두리스트 불러오기
   const getTodos = async () => {
     const response = await callGetTodos();
-    if (response) {
-      setTodoList(response.data.data);
-    }
+    setTodoList(response?.data.data);
   };
 
-  //todo 삭제 추가 수정 수정 이벤트
-  const findTodoId = (update: Todo[], targetId: Todo | string): any => {
-    const keys = Object.keys(update) as (keyof typeof update)[];
-    const id: any = keys.find((key: any) => update[key].id === targetId);
-    return id;
-  };
-
-  const getCopiedTodoList = (): Todo[] => {
-    return { ...todoList };
-  };
-
-  const handleTodoAdd = (todo: Todo): void => {
-    const update = getCopiedTodoList();
-    update[Object.keys(update).length] = todo;
+  //todo 추가
+  const handleAddTodo = (newTodo: Todo) => {
+    const update = {...todoList}
+    update[Object.keys(update).length] = newTodo;
     setTodoList(update);
   };
 
-  const handleTodoModify = (todo: Todo): void => {
-    const update = getCopiedTodoList();
-    const id: any = findTodoId(update, todo.id);
-    update[id] = todo;
-    setTodoList(update);
+  //todo 수정
+  const handleUpdateTodo = (todoIndex: number, newTodo: Todo) => {
+    const update = {...todoList}
+    update[todoIndex] = newTodo;
+    setTodoList(update)
   };
 
-  const handleTodoDelete = (clickedId: string): void => {
-    const update = getCopiedTodoList();
-    const id: any = findTodoId(update, clickedId);
-    delete update[id];
-    setTodoList(update);
+  //todo 삭제
+  const handleDeleteTodo = (todoIndex: number) => {
+    const update = {...todoList}
+    delete update[todoIndex];
+    setTodoList(update)
   };
 
   return (
@@ -75,17 +63,20 @@ function TodoList() {
       <hr />
       <section className="h-2/3 mt-10 mb-10">
         <ul className="items">
-          {Object.values(todoList).map((item, key) => (
-            <li className="mb-5 ml-3 mr-3 " key={key} id={item.id}>
+          {Object.values(todoList).map((todo, index) => (
+            <li className="mb-5 ml-3 mr-3 " key={index} value={index}>
               <section className="flex w-full">
                 <TodoTitle
-                  title={item.title}
-                  handleTodoDelete={handleTodoDelete}
+                  todo={todo}
+                  index={index}
+                  handleDeleteTodo={handleDeleteTodo}
                 />
               </section>
               <section className="w-full text-left mt-2">
-                {todoId?.includes(item.id) && (
-                  <TodoInfo handleTodoModify={handleTodoModify} />
+                {currentUrl?.includes(todo.id) && (
+                  <TodoInfo
+                  index={index}
+                  handleUpdateTodo={handleUpdateTodo} />
                 )}
               </section>
             </li>
@@ -94,7 +85,7 @@ function TodoList() {
       </section>
       <hr></hr>
       <section className="mt-3">
-        <TodoListFooter handleTodoAdd={handleTodoAdd} />
+        <TodoListFooter handleAddTodo={handleAddTodo} />
       </section>
     </section>
   );
