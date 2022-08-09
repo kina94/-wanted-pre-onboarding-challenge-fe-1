@@ -24,7 +24,7 @@ function TodoAdd({handleTodoAdd} : Props) {
   };
 
   return (
-    <>
+    <div className='flex flex-col justify-end'>
       <form ref={formRef}>
         <input
           className="px-3 mb-3 py-3 placeholder-slate-400 text-slate-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
@@ -41,15 +41,13 @@ function TodoAdd({handleTodoAdd} : Props) {
           placeholder="할일의 내용을 입력해주세요."
         ></input>
       </form>
-      <div className="flex justify-end">
         <button
           className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
           onClick={onTodoAddClick}
         >
           ADD
-        </button>
-      </div>
-    </>
+      </button>
+    </div>
   );
 }
 

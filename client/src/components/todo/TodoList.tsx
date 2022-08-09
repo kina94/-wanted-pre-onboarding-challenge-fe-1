@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callGetTodos } from "../../service/todoService";
 import { Todo } from "../../types/todo";
-import TodoAdd from "./TodoAdd";
+import TodoFooter from "./TodoFooter";
+import TodoHeader from "./TodoHeader";
 import TodoInfo from "./TodoInfo";
 import TodoTitle from "./TodoTitle";
 
@@ -44,37 +45,42 @@ function TodoList() {
   };
 
   const getCopiedTodoList = (): Todo[] => {
-    return {...todoList}
-  }
+    return { ...todoList };
+  };
 
   const handleTodoAdd = (todo: Todo): void => {
-    const update = getCopiedTodoList()
+    const update = getCopiedTodoList();
     update[Object.keys(update).length] = todo;
     setTodoList(update);
   };
 
   const handleTodoModify = (todo: Todo): void => {
-    const update = getCopiedTodoList()
+    const update = getCopiedTodoList();
     const id: any = findTodoId(update, todo.id);
     update[id] = todo;
     setTodoList(update);
   };
 
   const handleTodoDelete = (clickedId: string): void => {
-    const update = getCopiedTodoList()
+    const update = getCopiedTodoList();
     const id: any = findTodoId(update, clickedId);
     delete update[id];
     setTodoList(update);
   };
 
   return (
-    <>
+    <section className="min-h-96 overflow-hidden bg-white w-3/4 m-auto shadow-lg rounded-md p-5">
+      <TodoHeader />
+      <hr />
       <section className="h-2/3 mt-10 mb-10">
         <ul className="items">
           {Object.values(todoList).map((item, key) => (
             <li className="mb-5 ml-3 mr-3 " key={key} id={item.id}>
               <section className="flex w-full">
-                <TodoTitle title={item.title} handleTodoDelete={handleTodoDelete} />
+                <TodoTitle
+                  title={item.title}
+                  handleTodoDelete={handleTodoDelete}
+                />
               </section>
               <section className="w-full text-left mt-2">
                 {todoId?.includes(item.id) && (
@@ -87,9 +93,9 @@ function TodoList() {
       </section>
       <hr></hr>
       <section className="mt-3">
-        <TodoAdd handleTodoAdd={handleTodoAdd}></TodoAdd>
+        <TodoFooter handleTodoAdd={handleTodoAdd} />
       </section>
-    </>
+    </section>
   );
 }
 
