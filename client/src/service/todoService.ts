@@ -18,7 +18,7 @@ export const callGetTodos = async () => {
       return res;
     }
   } catch (error: any) {
-    alert(error.response.data.details);
+    throw Error(error.response.data.details);
   }
 };
 

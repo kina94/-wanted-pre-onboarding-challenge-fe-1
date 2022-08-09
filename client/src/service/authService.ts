@@ -10,7 +10,7 @@ export const callLoginApi = async(params: User) => {
             return res
         }
     } catch (error: any) {
-        alert(error.response.data.details)
+        throw Error(error.response.data.details)
     }
 }
 
@@ -23,6 +23,6 @@ export const callSignUpApi = async(params: User) => {
             return res
         }
     } catch(error: any) {
-        alert(error.response.data.details)
+        throw Error(error.response.data.details)
     }
 }
