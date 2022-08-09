@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { callGetTodos } from "../service/todoService";
-import { Todo } from "../types/todo";
+import { callGetTodos } from "../../service/todoService";
+import { Todo } from "../../types/todo";
 import TodoAdd from "./TodoAdd";
 import TodoInfo from "./TodoInfo";
 import TodoTitle from "./TodoTitle";

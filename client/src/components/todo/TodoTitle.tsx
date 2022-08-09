@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { callDeleteTodo } from "../service/todoService";
+import { callDeleteTodo } from "../../service/todoService";
 interface Props {
   title: string;
   handleTodoDelete: (clickedId: string) => void;

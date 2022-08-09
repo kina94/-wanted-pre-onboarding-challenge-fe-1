@@ -1,6 +1,6 @@
 import React from "react";
-import TodoHeader from "../components/TodoHeader";
-import TodoList from "../components/TodoList";
+import TodoHeader from "../components/todo/TodoHeader";
+import TodoList from "../components/todo/TodoList";
 
 function Todos() {
   return (

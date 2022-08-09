@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { callGetTodoById, callUpdateTodo } from "../service/todoService";
-import { Todo } from "../types/todo";
+import { callGetTodoById, callUpdateTodo } from "../../service/todoService";
+import { Todo } from "../../types/todo";
 
 interface Props {
   handleTodoModify: (todo: Todo) => void;

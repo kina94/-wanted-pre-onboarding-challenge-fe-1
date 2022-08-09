@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { callCreateTodo } from "../service/todoService";
-import { Todo, TodoInput } from "../types/todo";
+import { callCreateTodo } from "../../service/todoService";
+import { Todo, TodoInput } from "../../types/todo";
 interface Props {
   handleTodoAdd: (todo: Todo) => void
 }
