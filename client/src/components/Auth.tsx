@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { callLoginApi, callSignUpApi } from "../service/authService";
 import { User } from "../types/auth";
 import { submitValidator } from "../utils/submitValidator";
+import Header from "./layout/Header";
 interface Props {
   title: string;
 }
@@ -47,9 +48,7 @@ function Auth({ title }: Props) {
   {
     return (
       <div className="w-full bg-white min-h-500 md:w-4/12 m-auto shadow-lg rounded-md p-5">
-        <h1 className="text-3xl text-left p-2 font-bold leading-normal mt-0 mb-2 text-slate-500">
-          {title}
-        </h1>
+        <Header title={title}/>
         <form className="form">
           <div className="relative flex w-full flex-wrap items-stretch mb-3">
             <span className="z-10 h-full leading-snug font-normal absolute text-center text-slate-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
@@ -80,6 +79,9 @@ function Auth({ title }: Props) {
         </form>
 
         <div className="flex justify-end">
+          {
+            pathname === '/login'
+          }
           {pathname === "/login" && (
             <button
               className={
