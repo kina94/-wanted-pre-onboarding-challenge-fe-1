@@ -15,7 +15,7 @@ function Todos() {
     <section className="h-full w-full flex flex-wrap">
       <section className="min-h-96 overflow-hidden	bg-white w-3/4 m-auto shadow-lg rounded-md p-5">
         <header className="flex justify-between items-center">
-          <h1 className="text-3xl text-right p-2 font-bold leading-normal mt-0 mb-2 text-blueGray-500">
+          <h1 className="text-3xl text-right p-2 font-bold leading-normal mt-0 mb-2 text-slate-500">
             Todo List
           </h1>
           <button

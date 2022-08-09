@@ -26,14 +26,14 @@ function TodoAdd({todoAdd} : Props) {
     <>
       <form ref={formRef}>
         <input
-          className="px-3 mb-3 py-3 placeholder-blueGray-400 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
+          className="px-3 mb-3 py-3 placeholder-slate-400 text-slate-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
           type="text"
           id="title"
           onChange={onChange}
           placeholder="할일의 제목을 입력해주세요."
         ></input>
         <input
-          className="px-3 mb-3 py-3 placeholder-blueGray-400 text-blueGray-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
+          className="px-3 mb-3 py-3 placeholder-slate-400 text-slate-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
           type="text"
           id="content"
           onChange={onChange}

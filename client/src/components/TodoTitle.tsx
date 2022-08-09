@@ -39,7 +39,7 @@ function TodoTitle({ title, todoDelete }: Props) {
   return (
     <>
       <div
-        className="cursor-pointer w-full text-left text-base font-light leading-relaxed mt-0 mb-0 text-blueGray-600 hover:font-bold"
+        className="cursor-pointer w-full text-left text-base font-light leading-relaxed mt-0 mb-0 text-slate-600 hover:font-bold"
         onClick={onClickTodo}
       >
         <span className="text-indigo-500">
@@ -49,14 +49,14 @@ function TodoTitle({ title, todoDelete }: Props) {
       </div>
       <div className="flex justify-end">
         <button
-          className="mr-3 text-blueGray-500 hover:text-indigo-500"
+          className="mr-3 text-slate-500 hover:text-indigo-500"
           id="edit"
           onClick={onClickTodo}
         >
           <i className="fas fa-pen" id="edit"></i>
         </button>
         <button
-          className="text-blueGray-500 hover:text-indigo-500"
+          className="text-slate-500 hover:text-indigo-500"
           id="delete"
           onClick={onClickDelete}
         >

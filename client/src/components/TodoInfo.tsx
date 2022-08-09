@@ -71,7 +71,7 @@ function TodoInfo({ todoModify }: Props) {
               수정하기
             </button>
             <button
-              className="bg-blueGray-500 text-white active:bg-blueGray-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
+              className="bg-slate-500 text-white active:bg-slate-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
               onClick={() => navigate(`/${todoId}`)}
             >
               취소하기
@@ -91,7 +91,7 @@ function TodoInfo({ todoModify }: Props) {
 
   return (
     <section>
-      <div className="p-5 uppercase rounded-md text-blueGray-600 bg-blueGray-200">
+      <div className="p-5 uppercase rounded-md text-slate-600 bg-slate-200">
       {switchViewByMode()}
       </div>
     </section>
