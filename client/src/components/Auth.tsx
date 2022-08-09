@@ -80,7 +80,7 @@ function Auth({
                 location === "/sign_up" && !submitValidator(user) ? true : false
               }
             >
-              Sign-up
+              {location === "/sign_up" ? 'Submit' : 'SignUp'}
             </button>
           </div>
         </div>
