@@ -9,12 +9,12 @@ function Login() {
   const [user, setUser] = useState<User>({ email: "", password: "" });
 
   //input event
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
   //로그인 버튼 클릭
-  const onLoginSubmit = async () => {
+  const handleLoginSubmit = async () => {
     const response = await callLoginApi(user);
     if (response) {
       localStorage.setItem("token", response.data.token);
@@ -23,7 +23,7 @@ function Login() {
   };
 
   // 회원가입 버튼 클릭
-  const onClickSignUp = (): void => {
+  const handleSignUpButton = (): void => {
     navigate("/sign_up");
   };
 
@@ -38,9 +38,9 @@ function Login() {
     <Auth
       title="Login"
       user={user}
-      handleInputChange={onChange}
-      handleClick={onClickSignUp}
-      handleSubmit={onLoginSubmit}
+      onInputChange={handleInputChange}
+      onClickSignUp={handleSignUpButton}
+      onClickLogin={handleLoginSubmit}
     />
   );
 }

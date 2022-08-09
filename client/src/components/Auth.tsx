@@ -5,17 +5,17 @@ import { submitValidator } from "../utils/submitValidator";
 interface Props {
   title: string;
   user: User;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleClick: () => void;
-  handleSubmit?: () => void;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickSignUp: () => void;
+  onClickLogin?: () => void;
 }
 
 function Auth({
   title,
   user,
-  handleInputChange,
-  handleClick,
-  handleSubmit,
+  onInputChange,
+  onClickSignUp,
+  onClickLogin,
 }: Props) {
   const location = useLocation().pathname;
   {
@@ -33,7 +33,7 @@ function Auth({
               <input
                 type="text"
                 placeholder="이메일을 입력해주세요."
-                onChange={handleInputChange}
+                onChange={onInputChange}
                 autoComplete="off"
                 id="email"
                 className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border border-slate-300 outline-none focus:outline-none focus:shadow-outline w-full pl-10"
@@ -46,7 +46,7 @@ function Auth({
               <input
                 type="password"
                 id="password"
-                onChange={handleInputChange}
+                onChange={onInputChange}
                 autoComplete="off"
                 placeholder="비밀번호를 입력해주세요."
                 className="px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border border-slate-300 outline-none focus:outline-none focus:shadow-outline w-full pl-10"
@@ -64,7 +64,7 @@ function Auth({
                 }
                 type="submit"
                 disabled={submitValidator(user) ? false : true}
-                onClick={handleSubmit}
+                onClick={onClickLogin}
               >
                 Login
               </button>
@@ -75,7 +75,7 @@ function Auth({
                   ? "mr-2 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   : "mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               }
-              onClick={handleClick}
+              onClick={onClickSignUp}
               disabled={
                 location === "/sign_up" && !submitValidator(user) ? true : false
               }

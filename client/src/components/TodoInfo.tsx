@@ -4,10 +4,10 @@ import { callGetTodoById, callUpdateTodo } from "../service/todoService";
 import { Todo } from "../types/todo";
 
 interface Props {
-  todoModify: (todo: Todo) => void;
+  handleTodoModify: (todo: Todo) => void;
 }
 
-function TodoInfo({ todoModify }: Props) {
+function TodoInfo({ handleTodoModify }: Props) {
   const { "*": action } = useParams();
   const todoId: string | undefined = action?.split("/")[0];
   const navigate = useNavigate();
@@ -28,9 +28,9 @@ function TodoInfo({ todoModify }: Props) {
   };
 
   // 수정하기 버튼 클릭
-  const onClickModify = async () => {
+  const onTodoModifyClick = async () => {
     const response = await callUpdateTodo(todoId, todo);
-    todoModify(response!.data.data);
+    handleTodoModify(response!.data.data);
     navigate(`/${todoId}`);
   };
 
@@ -66,7 +66,7 @@ function TodoInfo({ todoModify }: Props) {
           <div className="flex justify-end mt-2">
             <button
               className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-              onClick={onClickModify}
+              onClick={onTodoModifyClick}
             >
               수정하기
             </button>

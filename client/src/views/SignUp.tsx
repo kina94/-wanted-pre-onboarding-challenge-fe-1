@@ -9,7 +9,7 @@ function SignUp() {
   const [user, setUser] = useState<User>({ email: "", password: "" });
 
   // 회원가입 버튼 클릭
-  const onClickSignUp = async () => {
+  const handleSignUpSubmit = async () => {
     const response = await callSignUpApi(user);
     if (response) {
       alert(response.data.message);
@@ -17,7 +17,7 @@ function SignUp() {
     }
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
@@ -25,8 +25,8 @@ function SignUp() {
     <Auth
       title="SignUp"
       user={user}
-      handleInputChange={onChange}
-      handleClick={onClickSignUp}
+      onInputChange={handleInputChange}
+      onClickSignUp={handleSignUpSubmit}
     />
   );
 }

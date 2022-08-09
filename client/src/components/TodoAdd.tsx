@@ -2,9 +2,10 @@ import React, { useRef, useState } from "react";
 import { callCreateTodo } from "../service/todoService";
 import { Todo, TodoInput } from "../types/todo";
 interface Props {
-    todoAdd: (todo: Todo) => void
+  handleTodoAdd: (todo: Todo) => void
 }
-function TodoAdd({todoAdd} : Props) {
+
+function TodoAdd({handleTodoAdd} : Props) {
   const formRef = React.useRef() as React.MutableRefObject<HTMLFormElement>;
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
@@ -16,9 +17,9 @@ function TodoAdd({todoAdd} : Props) {
   };
 
   // 투두 생성
-  const onClickCreate = async () => {
+  const onTodoAddClick = async () => {
     const response = await callCreateTodo(newTodo);
-    todoAdd(response!.data.data);
+    handleTodoAdd(response!.data.data);
     formRef.current.reset();
   };
 
@@ -43,7 +44,7 @@ function TodoAdd({todoAdd} : Props) {
       <div className="flex justify-end">
         <button
           className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-          onClick={onClickCreate}
+          onClick={onTodoAddClick}
         >
           ADD
         </button>

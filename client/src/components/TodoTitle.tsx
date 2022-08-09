@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { callDeleteTodo } from "../service/todoService";
 interface Props {
   title: string;
-  todoDelete: (clickedId: string) => void;
+  handleTodoDelete: (clickedId: string) => void;
 }
 
-function TodoTitle({ title, todoDelete }: Props) {
+function TodoTitle({ title, handleTodoDelete }: Props) {
   const navigate = useNavigate();
   const { "*": todoId } = useParams();
 
@@ -26,14 +26,14 @@ function TodoTitle({ title, todoDelete }: Props) {
   };
 
   // 투두 삭제 버튼 클릭
-  const onClickDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onTodoDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     const clickedId: string = e.currentTarget.closest("li")!.id;
     callDeleteTodo(clickedId);
     if (todoId?.includes(clickedId)) {
       navigate("/");
     }
-    todoDelete(clickedId);
+    handleTodoDelete(clickedId);
   };
 
   return (
@@ -58,7 +58,7 @@ function TodoTitle({ title, todoDelete }: Props) {
         <button
           className="text-slate-500 hover:text-indigo-500"
           id="delete"
-          onClick={onClickDelete}
+          onClick={onTodoDeleteClick}
         >
           <i className="fas fa-trash-alt" id="delete"></i>
         </button>

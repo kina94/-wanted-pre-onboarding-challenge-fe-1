@@ -43,21 +43,25 @@ function TodoList() {
     return id;
   };
 
-  const todoAdd = (todo: Todo): void => {
-    const update: Todo[] = { ...todoList };
+  const getCopiedTodoList = (): Todo[] => {
+    return {...todoList}
+  }
+
+  const handleTodoAdd = (todo: Todo): void => {
+    const update = getCopiedTodoList()
     update[Object.keys(update).length] = todo;
     setTodoList(update);
   };
 
-  const todoModify = (todo: Todo): void => {
-    const update: Todo[] = { ...todoList };
+  const handleTodoModify = (todo: Todo): void => {
+    const update = getCopiedTodoList()
     const id: any = findTodoId(update, todo.id);
     update[id] = todo;
     setTodoList(update);
   };
 
-  const todoDelete = (clickedId: string): void => {
-    const update: Todo[] = { ...todoList };
+  const handleTodoDelete = (clickedId: string): void => {
+    const update = getCopiedTodoList()
     const id: any = findTodoId(update, clickedId);
     delete update[id];
     setTodoList(update);
@@ -70,11 +74,11 @@ function TodoList() {
           {Object.values(todoList).map((item, key) => (
             <li className="mb-5 ml-3 mr-3 " key={key} id={item.id}>
               <section className="flex w-full">
-                <TodoTitle title={item.title} todoDelete={todoDelete} />
+                <TodoTitle title={item.title} handleTodoDelete={handleTodoDelete} />
               </section>
               <section className="w-full text-left mt-2">
                 {todoId?.includes(item.id) && (
-                  <TodoInfo todoModify={todoModify} />
+                  <TodoInfo handleTodoModify={handleTodoModify} />
                 )}
               </section>
             </li>
@@ -83,7 +87,7 @@ function TodoList() {
       </section>
       <hr></hr>
       <section className="mt-3">
-        <TodoAdd todoAdd={todoAdd}></TodoAdd>
+        <TodoAdd handleTodoAdd={handleTodoAdd}></TodoAdd>
       </section>
     </>
   );
