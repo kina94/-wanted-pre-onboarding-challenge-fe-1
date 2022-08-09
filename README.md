@@ -137,4 +137,4 @@
 
 * * *
 
-## <a href='https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api'>개선 과정</a>
+## 개선 과정
