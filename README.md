@@ -17,7 +17,7 @@
 > #### 제공되는 API Repository를 활용하여 ReacJS 프로젝트와 연동하여 API 통신하기😺
 > Node.js Express : javascript를 사용하여 쉽게 서버를 구축할 수 있게 해주는 Node.js의 웹 프레임워크
 <details>
-    <summary><strong>💙구현 과정 보기</strong></summary>
+    <summary><strong>구현 과정 보기</strong></summary>
     
 1. 기본 세팅
     - 폴더 구조는 프론트 단을 맡는 client와 API Repository가 들어갈 server로 구성한다. 메인 폴더에서 명령어를 통해 'client' 이름의 리액트 프로젝트를 만들고 express와 concurrently를 차례로 설치한다. 
