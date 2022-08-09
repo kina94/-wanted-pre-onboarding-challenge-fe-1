@@ -1,23 +1,49 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { callLoginApi, callSignUpApi } from "../service/authService";
 import { User } from "../types/auth";
 import { submitValidator } from "../utils/submitValidator";
 interface Props {
   title: string;
-  user: User;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onClickSignUp: () => void;
-  onClickLogin?: () => void;
 }
 
-function Auth({
-  title,
-  user,
-  onInputChange,
-  onClickSignUp,
-  onClickLogin,
-}: Props) {
-  const location = useLocation().pathname;
+function Auth({ title }: Props) {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<User>({ email: "", password: "" });
+  const { pathname } = useLocation()
+
+  //인풋 이벤트
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setUser({ ...user, [e.target.id]: e.target.value });
+  };
+
+  //로그인 버튼 클릭
+  const onLoginClick = async () => {
+    const response = await callLoginApi(user);
+    localStorage.setItem("token", response?.data.token);
+    navigate("/");
+  };
+
+  // 회원가입 페이지로 이동
+  const onSignUpClick = (): void => {
+    navigate("/sign_up");
+  };
+
+  // 회원가입하기
+  const onSignUpSubmit = async() =>{
+    const response = await callSignUpApi(user);
+    alert(response?.data.message);
+    navigate("/login");
+  }
+
+  //토큰이 있는 경우 Login 또는 SignUp 페이지 접근 시 리디렉션
+  useEffect(() => {
+    const USER_TOKEN: string | null = localStorage.getItem("token");
+    if (USER_TOKEN) {
+      navigate("/");
+    }
+  });
+
   {
     return (
       <div className="w-full bg-white min-h-500 md:w-4/12 m-auto shadow-lg rounded-md p-5">
@@ -54,7 +80,7 @@ function Auth({
         </form>
 
         <div className="flex justify-end">
-          {location === "/login" && (
+          {pathname === "/login" && (
             <button
               className={
                 submitValidator(user)
@@ -63,23 +89,23 @@ function Auth({
               }
               type="submit"
               disabled={submitValidator(user) ? false : true}
-              onClick={onClickLogin}
+              onClick={onLoginClick}
             >
               Login
             </button>
           )}
           <button
             className={
-              location === "/sign_up" && !submitValidator(user)
+              pathname === "/sign_up" && !submitValidator(user)
                 ? "mr-2 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 : "mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             }
-            onClick={onClickSignUp}
+            onClick={pathname === '/sign_up' ? onSignUpSubmit : onSignUpClick}
             disabled={
-              location === "/sign_up" && !submitValidator(user) ? true : false
+              pathname === "/sign_up" && !submitValidator(user) ? true : false
             }
           >
-            {location === "/sign_up" ? "Submit" : "SignUp"}
+            {pathname === "/sign_up" ? "Submit" : "SignUp"}
           </button>
         </div>
       </div>
