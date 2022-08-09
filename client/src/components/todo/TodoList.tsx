@@ -58,7 +58,7 @@ function TodoList() {
   };
 
   return (
-    <section className="min-h-96 overflow-hidden bg-white w-3/4 m-auto shadow-lg rounded-md p-5">
+    <section className="bg-white m-auto shadow-lg rounded-md p-5">
       <TodoListHeader />
       <hr />
       <section className="h-2/3 mt-10 mb-10">
