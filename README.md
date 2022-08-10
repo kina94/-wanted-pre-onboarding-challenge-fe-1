@@ -129,7 +129,7 @@
 
 * * *
 
-## <a href='https://github.com/starkoora/wanted-pre-onboarding-challenge-fe-1-api'>API 스펙</a>
+## <a href='https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/server'>API 스펙</a>
 
 * * *
 
