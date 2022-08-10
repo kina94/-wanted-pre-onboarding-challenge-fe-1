@@ -1,30 +1,23 @@
-import { User } from '../types/auth'
-import axios from 'axios'
-const BASE_URL = '/users'
+import { doAxios } from "./../utils/doAxios";
+import { User } from "../types/auth";
+const BASE_URL = "/users";
 
 //로그인
-export const callLoginApi = async(params: User) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/login`, params)
-        if (res.status === 200) {
-            return res
-        }
-    } catch (error: any) {
-        alert(error.response.data.details)
-        throw Error(error.response.data.details)
-    }
-}
-
+export const callLoginApi = async (params: User) => {
+  const response = await doAxios({
+    method: "post",
+    url: `${BASE_URL}/login`,
+    data: params,
+  });
+  return response;
+};
 
 //회원가입
-export const callSignUpApi = async(params: User) => {
-    try {
-        const res = await axios.post(`${BASE_URL}/create`, params)
-        if (res.status === 200) {
-            return res
-        }
-    } catch(error: any) {
-        alert(error.response.data.details)
-        throw Error(error.response.data.details)
-    }
-}
+export const callSignUpApi = async (params: User) => {
+  const response = await doAxios({
+    method: "post",
+    url: `${BASE_URL}/create`,
+    data: params,
+  });
+  return response;
+};
