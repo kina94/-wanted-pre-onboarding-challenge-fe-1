@@ -2,7 +2,7 @@
 * * *
 
 ## 폴더 구조
-![image](https://user-images.githubusercontent.com/66938939/183501171-483f465a-eecd-470e-a889-4c9c504cff47.png)
+![image](https://user-images.githubusercontent.com/66938939/183906731-4841d202-bfc2-45d7-a651-032c5d05d557.png)
 
 * * *
 ## 주요 기술
