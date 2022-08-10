@@ -1,4 +1,6 @@
-export const submitValidator = (submitForm) => {
+import { User } from '../types/auth'
+
+export const submitValidator = (submitForm: User) => {
     const {email, password} = submitForm
     if(email==='' || password===''){
         return false
