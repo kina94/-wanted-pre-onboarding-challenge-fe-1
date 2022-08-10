@@ -80,8 +80,6 @@
 </br>
 
 > ### Assignment 1 - Login / SignUp
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/views">👉 관련 Pages Repository 바로가기</a></br>
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/authService.ts">👉 관련 API Repository 바로가기</a>
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
 
     ![Animation](https://user-images.githubusercontent.com/66938939/183641184-301a9ed4-42b0-46c8-b88d-e27533604589.gif)
@@ -106,9 +104,7 @@
 
 </br>
 
-> ### Assignment 2 - Todo List
-> #### <a href="https://https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/tree/main/client/src/views">👉 관련 Pages Repository 바로가기</a></br>
-> #### <a href="https://github.com/kina94/wanted-pre-onboarding-challenge-fe-1/blob/main/client/src/service/todoService.ts">👉 관련 API Repository 바로가기</a>
+> ### Assignment 2 - Todo List>
 - Todo List API를 호출하여 Todo List CRUD 기능을 구현해주세요
 
     ![Animation](https://user-images.githubusercontent.com/66938939/183643346-d9cca9cc-373d-4363-b530-d4039e1c340b.gif)
