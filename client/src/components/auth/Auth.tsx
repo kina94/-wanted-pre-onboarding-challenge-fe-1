@@ -21,8 +21,10 @@ function Auth({ title }: Props) {
   //로그인 버튼 클릭
   const onLoginClick = async () => {
     const response = await callLoginApi(user);
-    localStorage.setItem("token", response?.data.token);
-    navigate("/");
+    if(response){
+      localStorage.setItem("token", response?.data.token);
+      navigate("/");
+    }
   };
 
   // 회원가입 페이지로 이동
