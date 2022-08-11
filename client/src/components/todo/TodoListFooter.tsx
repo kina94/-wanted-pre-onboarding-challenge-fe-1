@@ -6,7 +6,7 @@ interface Props {
 }
 
 function TodoListFooter({handleAddTodo} : Props) {
-  const formRef = useRef<any>('')
+  const formRef = useRef<HTMLFormElement>(null)
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -21,7 +21,7 @@ function TodoListFooter({handleAddTodo} : Props) {
   const onTodoAddClick = async () => {
     const response = await callCreateTodoApi(newTodo);
     handleAddTodo(response!.data.data);
-    formRef.current.reset();
+    formRef.current?.reset();
   };
 
   return (
