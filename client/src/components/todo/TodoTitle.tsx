@@ -13,9 +13,9 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
 
-  // 현재 보고 있는 투두가 삭제되면 리디렉션 : 투두 상세보기
+  // 투두 상세보기
   const setTodoInfoView = () =>{
-    currentUrl === todo.id ? navigate('/') : navigate(`/${todo.id}`) 
+    navigate(`/${todo.id}`) 
   }
 
   //수정 모드 전환
