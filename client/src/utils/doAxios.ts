@@ -1,7 +1,9 @@
 import { User } from '../types/auth'
 import { Todo, TodoInput } from './../../../server/types/todos';
 import axios from 'axios'
-const token = localStorage.getItem("token") as string;
+const savedToken = localStorage.getItem("token")
+const token = typeof savedToken === 'string' && savedToken
+
 interface Request{
     method: string,
     url: string
