@@ -6,7 +6,7 @@ function TodoListHeader() {
   const navigate = useNavigate();
 
   //로그아웃 이벤트
-  const onClickLogout = (): void => {
+  const onClickLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };

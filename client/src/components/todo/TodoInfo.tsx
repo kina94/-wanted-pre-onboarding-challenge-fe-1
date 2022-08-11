@@ -34,7 +34,7 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
   };
 
   //수정 내용 입력 이벤트
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({ ...todo, [e.target.id]: e.target.value });
   };
 

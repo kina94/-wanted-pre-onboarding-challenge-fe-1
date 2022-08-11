@@ -14,7 +14,7 @@ function Auth({ title }: Props) {
   const { pathname } = useLocation();
 
   //인풋 이벤트
-  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.id]: e.target.value });
   };
 
