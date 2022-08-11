@@ -16,21 +16,21 @@ export const callGetTodoById = async (id: string | undefined) => {
 };
 
 //투두 생성
-export const callCreateTodo = async (params: TodoInput) => {
+export const callCreateTodo = async (data: TodoInput) => {
   const response = await doAxios({
     method: "post",
     url: `${BASE_URL}`,
-    data: params,
+    data,
   });
   return response;
 };
 
 //투두 수정
-export const callUpdateTodo = async (id: string | undefined, params: Todo) => {
+export const callUpdateTodo = async (id: string | undefined, data: Todo) => {
   const response = await doAxios({
     method: "put",
     url: `${BASE_URL}/${id}`,
-    data: params,
+    data,
   });
   return response;
 };
