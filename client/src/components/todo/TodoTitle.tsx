@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { callDeleteTodo } from "../../service/todoService";
+import { callDeleteTodoApi } from "../../service/todoService";
 import { Todo } from "../../types/todo";
 
 interface Props {
@@ -25,7 +25,7 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
 
   // 투두 삭제 버튼 클릭
   const onTodoDeleteClick = async() => {
-    callDeleteTodo(todo.id);
+    callDeleteTodoApi(todo.id);
     handleDeleteTodo(index)
     currentUrl?.includes(todo.id) && navigate("/");
   };

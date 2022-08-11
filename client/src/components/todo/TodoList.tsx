@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { callGetTodos } from "../../service/todoService";
+import { callGetTodosApi } from "../../service/todoService";
 import { Todo } from "../../types/todo";
 import TodoListFooter from "./TodoListFooter";
 import TodoListHeader from "./TodoListHeader";
@@ -32,7 +32,7 @@ function TodoList() {
 
   //투두리스트 불러오기
   const getTodos = async () => {
-    const response = await callGetTodos();
+    const response = await callGetTodosApi();
     setTodoList(response?.data.data);
   };
 

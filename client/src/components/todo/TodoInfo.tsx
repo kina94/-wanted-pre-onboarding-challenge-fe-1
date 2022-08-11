@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { callGetTodoById, callUpdateTodo } from "../../service/todoService";
+import { callGetTodoByIdApi, callUpdateTodoApi } from "../../service/todoService";
 import { Todo } from "../../types/todo";
 
 interface Props {
@@ -22,13 +22,13 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
 
   //투두 상세 정보 불러오기
   const getTodo = async (id?: string) => {
-    const response = await callGetTodoById(id);
+    const response = await callGetTodoByIdApi(id);
     setTodo(response?.data.data);
   };
 
   // 수정하기 버튼 클릭
   const onTodoUpdateClick = async () => {
-    const response = await callUpdateTodo(todoId, todo);
+    const response = await callUpdateTodoApi(todoId, todo);
     handleUpdateTodo(index, response!.data.data);
     navigate(`/${todoId}`);
   };

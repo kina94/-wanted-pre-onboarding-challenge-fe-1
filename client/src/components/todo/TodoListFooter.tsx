@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { callCreateTodo } from "../../service/todoService";
+import { callCreateTodoApi } from "../../service/todoService";
 import { Todo, TodoInput } from "../../types/todo";
 interface Props {
   handleAddTodo: (newTodo: Todo) => void;
@@ -19,7 +19,7 @@ function TodoListFooter({handleAddTodo} : Props) {
 
   // 투두 생성
   const onTodoAddClick = async () => {
-    const response = await callCreateTodo(newTodo);
+    const response = await callCreateTodoApi(newTodo);
     handleAddTodo(response!.data.data);
     formRef.current.reset();
   };
