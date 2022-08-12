@@ -27,7 +27,8 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
   const onTodoDeleteClick = async() => {
     callDeleteTodoApi(todo.id);
     handleDeleteTodo(index)
-    currentUrl?.includes(todo.id) && navigate("/");
+    //삭제한 투두가 현재 조회하고 있는 투두라면 루트 경로로 리디렉션
+    currentUrl?.includes(todo.id) && navigate("/"); 
   };
 
   return (

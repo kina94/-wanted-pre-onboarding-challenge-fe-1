@@ -21,7 +21,7 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
   });
 
   //투두 상세 정보 불러오기
-  const getTodo = async (id?: string) => {
+  const getTodoInfo = async (id?: string) => {
     const response = await callGetTodoByIdApi(id);
     setTodo(response?.data.data);
   };
@@ -39,7 +39,7 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
   };
 
   useEffect(() => {
-    getTodo(todoId);
+    getTodoInfo(todoId);
   }, [todoId]);
 
   // 수정 / 상세보기 url에 따라 뷰 전환
