@@ -14,12 +14,12 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
   const { "*": currentUrl } = useParams();
 
   // 투두 상세보기
-  const setTodoInfoView = () =>{
+  const navigateTodoInfo = () =>{
     navigate(`/${todo.id}`) 
   }
 
   //수정 모드 전환
-  const setTodoUpdateView = () =>{
+  const navigateTodoEdit = () =>{
     navigate(`/${todo.id}/edit`);
   }
 
@@ -35,7 +35,7 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
     <>
       <div
         className="cursor-pointer w-full text-left text-base font-light leading-relaxed mt-0 mb-0 text-slate-600 hover:font-bold"
-        onClick={setTodoInfoView}
+        onClick={navigateTodoInfo}
       >
         <span className="text-indigo-500">
           <i className="fas fa-check-circle"></i>
@@ -46,7 +46,7 @@ function TodoTitle({ todo, index, handleDeleteTodo }: Props) {
         <button
           className="mr-3 text-slate-500 hover:text-indigo-500"
           id="edit"
-          onClick={setTodoUpdateView}
+          onClick={navigateTodoEdit}
         >
           <i className="fas fa-pen" id="edit"></i>
         </button>

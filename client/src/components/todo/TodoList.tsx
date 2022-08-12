@@ -54,7 +54,7 @@ function TodoList() {
   const handleDeleteTodo = (todoIndex: number) => {
     const update = {...todoList}
     delete update[todoIndex];
-      setTodoList(update)
+    setTodoList(update)
   };
 
   return (
