@@ -51,7 +51,7 @@ function TodoInfo({ todoId, index }: Props) {
 
   useEffect(() => {
     getTodoInfo(todoId);
-  }, [todoId]);
+  }, [currentUrl]);
 
   // 수정 / 상세보기 url에 따라 뷰 전환
   const switchViewByMode = (): ReactElement => {
