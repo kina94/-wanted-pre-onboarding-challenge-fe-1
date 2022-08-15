@@ -9,7 +9,7 @@
 > ### BackEnd
 - NodeJs, TypeScript
 > ### FrontEnd
-- React Js, HTML, CSS, TypeScript* (TypeScript로 리팩토링 1차 완료.. 공부 중이라 어설프게 리팩토링 된 상태... 열심히 강의를 듣자😭)
+- React Js, HTML, CSS, TypeScript, react-redux
 * * *
 
 ## 구현 사항
