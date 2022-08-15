@@ -9,13 +9,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../modules";
 import { getTodos } from "../../modules/todo";
 import { Todo } from "../../types/todo";
+import TodoEdit from "./TodoEdit";
 
 function TodoList() {
-  const todoList: Todo[] = useSelector((state: RootState) => state.todoReducer.todos);
+  const todoList: Todo[] = useSelector(
+    (state: RootState) => state.todoReducer.todos
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
-
+  
   //유저 토큰이 없을 경우 로그인 화면으로 리디렉션
   useEffect(() => {
     const USER_TOKEN = localStorage.getItem("token");
@@ -44,7 +47,12 @@ function TodoList() {
                 <TodoTitle todo={todo} index={index} />
               </section>
               <section className="w-full text-left mt-2">
-                {currentUrl?.includes(todo.id) && <TodoInfo todoId={todo.id} index={index} />}
+                {currentUrl === todo.id && (
+                  <TodoInfo todo={todo}/>
+                )}
+                {currentUrl === `${todo.id}/edit` && (
+                  <TodoEdit todo={todo} index={index} />
+                )}
               </section>
             </li>
           ))}
