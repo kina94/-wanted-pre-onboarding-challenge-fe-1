@@ -15,7 +15,7 @@ export const updateTodo = (todoIndex: number, newTodo: Todo) => ({
   todoIndex,
   newTodo,
 });
-export const deleteTodo = (todoIndex: number) => ({ type: DELETE, todoIndex });
+export const deleteTodo = (todoId: number) => ({ type: DELETE, todoId });
 
 /* ------------ 액션 타입 설정 ---------------*/
 type TodoAction =
@@ -71,7 +71,7 @@ export const todoReducer = (state: TodoState = initState, action: TodoAction): T
     }
 
     case "todo/DELETE": {
-      delete update[action.todoIndex];
+      delete update[action.todoId];
       return { ...state, todos: update };
     }
     

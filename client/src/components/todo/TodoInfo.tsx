@@ -1,18 +1,27 @@
 import React, { ReactElement, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { callGetTodoByIdApi, callUpdateTodoApi } from "../../service/todoService";
+import { RootState } from "../../modules";
+import { getTodo, updateTodo } from "../../modules/todo";
+import {
+  callGetTodoByIdApi,
+  callUpdateTodoApi,
+} from "../../service/todoService";
 import { Todo } from "../../types/todo";
 
 interface Props {
+  todoId: string;
   index: number;
-  handleUpdateTodo: (todoIndex: number, newTodo: Todo) => void;
 }
 
-function TodoInfo({ index, handleUpdateTodo }: Props) {
+function TodoInfo({ todoId, index }: Props) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
-  const todoId: string | undefined = currentUrl?.split("/")[0];
-  const [todo, setTodo] = useState<Todo>({
+  //현재 조회하고 있는 투두
+  const todo = useSelector((state: RootState) => state.todoReducer.todo);
+  //초기값 세팅
+  const [newTodo, setNewTodo] = useState<Todo>({
     title: "",
     content: "",
     createdAt: "",
@@ -23,19 +32,21 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
   //투두 상세 정보 불러오기
   const getTodoInfo = async (id?: string) => {
     const response = await callGetTodoByIdApi(id);
-    setTodo(response?.data.data);
-  };
-
-  // 수정하기 버튼 클릭
-  const onTodoUpdateClick = async () => {
-    const response = await callUpdateTodoApi(todoId, todo);
-    handleUpdateTodo(index, response!.data.data);
-    navigate(`/${todoId}`);
+    dispatch(getTodo(response?.data.data));
+    setNewTodo(response?.data.data)
   };
 
   //수정 내용 입력 이벤트
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo({ ...todo, [e.target.id]: e.target.value });
+    setNewTodo({ ...newTodo, [e.target.id]: e.target.value });
+  };
+
+  // 수정하기 버튼 클릭
+  const onTodoUpdateClick = async () => {
+    const response = await callUpdateTodoApi(todoId, newTodo);
+    //수정 완료된 newTodo를 updateTodo의 인자로 넘긴다
+    dispatch(updateTodo(index, response!.data.data));
+    navigate(`/${todoId}`);
   };
 
   useEffect(() => {
@@ -52,14 +63,14 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
               className="mb-1 bg-white border-none opacity-85 ext-indigo-600 text-md font-bold w-full"
               type="text"
               id="title"
-              value={todo?.title}
+              value={newTodo?.title}
               onChange={onChange}
             ></input>
             <input
               className="bg-white border-none opacity-80 font-normal text-sm leading-normal w-full"
               type="text"
               id="content"
-              value={todo?.content}
+              value={newTodo?.content}
               onChange={onChange}
             ></input>
           </form>
@@ -92,7 +103,7 @@ function TodoInfo({ index, handleUpdateTodo }: Props) {
   return (
     <section>
       <div className="p-5 uppercase rounded-md text-slate-600 bg-slate-200">
-      {switchViewByMode()}
+        {switchViewByMode()}
       </div>
     </section>
   );

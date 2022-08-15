@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callGetTodosApi } from "../../service/todoService";
-import { Todo } from "../../types/todo";
 import TodoListFooter from "./TodoListFooter";
 import TodoListHeader from "./TodoListHeader";
 import TodoInfo from "./TodoInfo";
 import TodoTitle from "./TodoTitle";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../modules";
+import { getTodos } from "../../modules/todo";
+import { Todo } from "../../types/todo";
 
 function TodoList() {
+  const todoList: Todo[] = useSelector((state: RootState) => state.todoReducer.todos);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
-  const [todoList, setTodoList] = useState<Todo[]>([
-    {
-      title: "",
-      content: "",
-      createdAt: "",
-      updatedAt: "",
-      id: "",
-    },
-  ]);
 
   //유저 토큰이 없을 경우 로그인 화면으로 리디렉션
   useEffect(() => {
@@ -26,35 +22,14 @@ function TodoList() {
     if (!USER_TOKEN) {
       navigate("/login");
     } else {
-      getTodos();
+      getTodoList();
     }
   }, []);
 
   //투두리스트 불러오기
-  const getTodos = async () => {
+  const getTodoList = async () => {
     const response = await callGetTodosApi();
-    setTodoList(response?.data.data);
-  };
-
-  //todo 추가
-  const handleAddTodo = (newTodo: Todo) => {
-    const update = {...todoList}
-    update[Object.keys(update).length] = newTodo;
-    setTodoList(update);
-  };
-
-  //todo 수정
-  const handleUpdateTodo = (todoIndex: number, newTodo: Todo) => {
-    const update = {...todoList}
-    update[todoIndex] = newTodo;
-    setTodoList(update)
-  };
-
-  //todo 삭제
-  const handleDeleteTodo = (todoIndex: number) => {
-    const update = {...todoList}
-    delete update[todoIndex];
-    setTodoList(update)
+    dispatch(getTodos(response?.data.data));
   };
 
   return (
@@ -66,18 +41,10 @@ function TodoList() {
           {Object.values(todoList).map((todo, index) => (
             <li className="mb-5 ml-3 mr-3 " key={index} value={index}>
               <section className="flex w-full">
-                <TodoTitle
-                  todo={todo}
-                  index={index}
-                  handleDeleteTodo={handleDeleteTodo}
-                />
+                <TodoTitle todo={todo} index={index} />
               </section>
               <section className="w-full text-left mt-2">
-                {currentUrl?.includes(todo.id) && (
-                  <TodoInfo
-                  index={index}
-                  handleUpdateTodo={handleUpdateTodo} />
-                )}
+                {currentUrl?.includes(todo.id) && <TodoInfo todoId={todo.id} index={index} />}
               </section>
             </li>
           ))}
@@ -85,7 +52,7 @@ function TodoList() {
       </section>
       <hr></hr>
       <section className="mt-3">
-        <TodoListFooter handleAddTodo={handleAddTodo} />
+        <TodoListFooter />
       </section>
     </section>
   );
