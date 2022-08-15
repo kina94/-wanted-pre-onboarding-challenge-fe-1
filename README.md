@@ -136,4 +136,4 @@
 ## 개선 과정
 > ### <a href='https://velog.io/@kina/CRUD-w-React-Query-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-1'>Refactoring 1 - 추상화, 관심사의 분리, 지저분한 코드와 맥락을 이해하기 힘든 변수명 고치기 </a>
 > ### <a href='https://velog.io/@kina/CRUD-w-React-Query-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-2'>Refactoring 2 - strict 옵션 적용, 타입 가드 </a>
-> ### <a href='https://velog.io/@kina/CRUD-w-React-Query-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-3'>Refactoring 3 - Redux 적용하기
+> ### <a href='https://velog.io/@kina/%EC%9B%90%ED%8B%B0%EB%93%9C-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A9-%EC%B1%8C%EB%A6%B0%EC%A7%80-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-3'>Refactoring 3 - Redux 적용하기
