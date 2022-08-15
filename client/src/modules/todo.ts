@@ -1,14 +1,14 @@
 import { Todo } from "./../types/todo";
 /* ------------ 액션 타입 --------------- */
 const GET_TODOS = "todo/GET_TODOS" as const;
-const GET_TODO = "todo/GET_TODO" as const;
+// const GET_TODO = "todo/GET_TODO" as const;
 const CREATE = "todo/CREATE" as const;
 const UPDATE = "todo/UPDATE" as const;
 const DELETE = "todo/DELETE" as const;
 
 /* ------------ 액션 생성 함수 ---------------*/
 export const getTodos = (todos: Todo[]) => ({ type: GET_TODOS, todos });
-export const getTodo = (todo: Todo) => ({ type: GET_TODO, todo });
+// export const getTodo = (todo: Todo) => ({ type: GET_TODO, todo });
 export const createTodo = (newTodo: Todo) => ({ type: CREATE, newTodo });
 export const updateTodo = (todoIndex: number, newTodo: Todo) => ({
   type: UPDATE,
@@ -20,7 +20,7 @@ export const deleteTodo = (todoId: number) => ({ type: DELETE, todoId });
 /* ------------ 액션 타입 설정 ---------------*/
 type TodoAction =
   | ReturnType<typeof getTodos>
-  | ReturnType<typeof getTodo>
+  // | ReturnType<typeof getTodo>
   | ReturnType<typeof createTodo>
   | ReturnType<typeof updateTodo>
   | ReturnType<typeof deleteTodo>;
@@ -28,7 +28,7 @@ type TodoAction =
 /* ------------ 초기 상태 ---------------*/
 type TodoState = {
   todos: Todo[]
-  todo: Todo
+  // todo: Todo
 }
 
 const initState: TodoState = {
@@ -40,13 +40,13 @@ const initState: TodoState = {
     id: "",
   }],
 
-  todo:{
-    title: "",
-    content: "",
-    createdAt: "",
-    updatedAt: "",
-    id: "",
-  }
+  // todo:{
+  //   title: "",
+  //   content: "",
+  //   createdAt: "",
+  //   updatedAt: "",
+  //   id: "",
+  // }
 }
 
 /* ------------ 리듀서 ---------------*/
@@ -57,8 +57,8 @@ export const todoReducer = (state: TodoState = initState, action: TodoAction): T
     case "todo/GET_TODOS":
       return { ...state, todos: action.todos };
 
-    case "todo/GET_TODO":
-        return { ...state, todo: action.todo };
+    // case "todo/GET_TODO":
+    //     return { ...state, todo: action.todo };
 
     case "todo/CREATE": {
       update[Object.keys(update).length] = action.newTodo;
