@@ -7,7 +7,7 @@ const UPDATE = "todo/UPDATE" as const;
 const DELETE = "todo/DELETE" as const;
 
 /* ------------ 액션 생성 함수 ---------------*/
-export const getTodos = (todos: Todo) => ({ type: GET_TODOS, todos });
+export const getTodos = (todos: Todo[]) => ({ type: GET_TODOS, todos });
 export const getTodo = (todo: Todo) => ({ type: GET_TODO, todo });
 export const createTodo = (newTodo: Todo) => ({ type: CREATE, newTodo });
 export const updateTodo = (todoIndex: number, newTodo: Todo) => ({
@@ -26,48 +26,53 @@ type TodoAction =
   | ReturnType<typeof deleteTodo>;
 
 /* ------------ 초기 상태 ---------------*/
-const todos: Todo[] = [
-  {
+type TodoState = {
+  todos: Todo[]
+  todo: Todo
+}
+
+const initState: TodoState = {
+  todos:[{
     title: "",
     content: "",
     createdAt: "",
     updatedAt: "",
     id: "",
-  },
-];
+  }],
 
-const todo: Todo = {
-  title: "",
-  content: "",
-  createdAt: "",
-  updatedAt: "",
-  id: "",
-};
+  todo:{
+    title: "",
+    content: "",
+    createdAt: "",
+    updatedAt: "",
+    id: "",
+  }
+}
 
 /* ------------ 리듀서 ---------------*/
-export const todoReducer = (state = [todos, todo], action: TodoAction) => {
-  const update = { ...todos };
+export const todoReducer = (state: TodoState = initState, action: TodoAction): TodoState => {
+  const update = { ...state.todos };
 
   switch (action.type) {
     case "todo/GET_TODOS":
-      return { todos: action.todos };
+      return { ...state, todos: action.todos };
 
     case "todo/GET_TODO":
-      return { todo: action.todo };
+        return { ...state, todo: action.todo };
 
     case "todo/CREATE": {
       update[Object.keys(update).length] = action.newTodo;
-      return { todos: update };
+      return { ...state, todos: update };
     }
 
     case "todo/UPDATE": {
       update[action.todoIndex] = action.newTodo;
-      return { todos: update };
+      return { ...state, todos: update };
     }
 
     case "todo/DELETE": {
       delete update[action.todoIndex];
-      return { todos: update };
+      return { ...state, todos: update };
     }
     
     default:
