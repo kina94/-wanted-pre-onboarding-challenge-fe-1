@@ -1,8 +1,7 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { deleteTodo } from "../../modules/todo";
-import { callDeleteTodoApi } from "../../service/todoService";
+import { idText } from "typescript";
+import { useDeleteTodo } from "../../hooks/query/todo";
 import { Todo } from "../../types/todo";
 
 interface Props {
@@ -11,26 +10,24 @@ interface Props {
 }
 
 function TodoTitle({ todo, index }: Props) {
-  const dispatch = useDispatch()
+  const deleteTodo = useDeleteTodo();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
 
   // 투두 상세보기
-  const navigateTodoInfo = () =>{
-    navigate(`/${todo.id}`) 
-  }
+  const navigateTodoInfo = () => {
+    navigate(`/${todo.id}`);
+  };
 
   //수정 모드 전환
-  const navigateTodoEdit = () =>{
+  const navigateTodoEdit = () => {
     navigate(`/${todo.id}/edit`);
-  }
+  };
 
   // 투두 삭제 버튼 클릭
-  const onTodoDeleteClick = async() => {
-    callDeleteTodoApi(todo.id);
-    dispatch(deleteTodo(index))
-    //삭제한 투두가 현재 조회하고 있는 투두라면 루트 경로로 리디렉션
-    currentUrl?.includes(todo.id) && navigate("/"); 
+  const onTodoDeleteClick = async () => {
+    deleteTodo.mutate(todo.id);
+    currentUrl?.includes(todo.id) && navigate("/");
   };
 
   return (

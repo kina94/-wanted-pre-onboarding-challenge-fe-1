@@ -21,7 +21,7 @@ function Auth({ title }: Props) {
   //로그인 버튼 클릭
   const onLoginClick = async () => {
     const response = await callLoginApi(user);
-    if(response){
+    if (response) {
       localStorage.setItem("token", response?.data.token);
       navigate("/");
     }
@@ -81,7 +81,6 @@ function Auth({ title }: Props) {
         </form>
 
         <div className="flex justify-end">
-          
           {pathname === "/login" && (
             <button
               className={
@@ -117,7 +116,6 @@ function Auth({ title }: Props) {
               SignUp
             </button>
           )}
-
         </div>
       </div>
     );

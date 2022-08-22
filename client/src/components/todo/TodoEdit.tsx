@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateTodo } from "../../modules/todo";
-import { callUpdateTodoApi } from "../../service/todoService";
+import { useUpdateTodo } from "../../hooks/query/todo";
 import { Todo } from "../../types/todo";
 interface Props {
   todo: Todo;
   index: number;
 }
 function TodoEdit({ todo, index }: Props) {
-  const dispatch = useDispatch();
+  const updateTodo = useUpdateTodo();
   const navigate = useNavigate();
   //초기값 세팅
   const [newTodo, setNewTodo] = useState<Todo>(todo);
 
   // 수정하기 버튼 클릭
   const onTodoUpdateClick = async () => {
-    const response = await callUpdateTodoApi(todo.id, newTodo);
-    //수정 완료된 newTodo를 updateTodo의 인자로 넘긴다
-    dispatch(updateTodo(index, response!.data.data));
+    updateTodo.mutate(newTodo);
     navigate(`/${todo.id}`);
   };
 

@@ -1,39 +1,23 @@
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { callGetTodosApi } from "../../service/todoService";
 import TodoListFooter from "./TodoListFooter";
 import TodoListHeader from "./TodoListHeader";
 import TodoInfo from "./TodoInfo";
 import TodoTitle from "./TodoTitle";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../modules";
-import { getTodos } from "../../modules/todo";
 import { Todo } from "../../types/todo";
 import TodoEdit from "./TodoEdit";
+import { useGetTodos } from "../../hooks/query/todo";
 
 function TodoList() {
-  const todoList: Todo[] = useSelector(
-    (state: RootState) => state.todoReducer.todos
-  );
-  const dispatch = useDispatch();
+  const { data: todos } = useGetTodos();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
-  
+
   //유저 토큰이 없을 경우 로그인 화면으로 리디렉션
   useEffect(() => {
     const USER_TOKEN = localStorage.getItem("token");
-    if (!USER_TOKEN) {
-      navigate("/login");
-    } else {
-      getTodoList();
-    }
+    !USER_TOKEN && navigate("/login");
   }, []);
-
-  //투두리스트 불러오기
-  const getTodoList = async () => {
-    const response = await callGetTodosApi();
-    dispatch(getTodos(response?.data.data));
-  };
 
   return (
     <section className="bg-white m-auto shadow-lg rounded-md p-5">
@@ -41,15 +25,13 @@ function TodoList() {
       <hr />
       <section className="h-2/3 mt-10 mb-10">
         <ul className="items">
-          {Object.values(todoList).map((todo, index) => (
+          {todos?.data.map((todo: Todo, index: number) => (
             <li className="mb-5 ml-3 mr-3 " key={index} value={index}>
               <section className="flex w-full">
                 <TodoTitle todo={todo} index={index} />
               </section>
               <section className="w-full text-left mt-2">
-                {currentUrl === todo.id && (
-                  <TodoInfo todo={todo}/>
-                )}
+                {currentUrl === todo.id && <TodoInfo todo={todo} />}
                 {currentUrl === `${todo.id}/edit` && (
                   <TodoEdit todo={todo} index={index} />
                 )}

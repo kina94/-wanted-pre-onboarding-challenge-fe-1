@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { createTodo } from "../../modules/todo";
-import { callCreateTodoApi } from "../../service/todoService";
-import { Todo, TodoInput } from "../../types/todo";
+import { useCreateTodo } from "../../hooks/query/todo";
+import { TodoInput } from "../../types/todo";
 
 function TodoListFooter() {
-  const dispatch = useDispatch();
+  const createTodo = useCreateTodo();
   const formRef = useRef<HTMLFormElement>(null);
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
@@ -18,9 +16,8 @@ function TodoListFooter() {
   };
 
   // 투두 생성
-  const onTodoAddClick = async () => {
-    const response = await callCreateTodoApi(newTodo);
-    dispatch(createTodo(response!.data.data));
+  const onTodoAddClick = () => {
+    createTodo.mutate(newTodo);
     formRef.current?.reset();
   };
 

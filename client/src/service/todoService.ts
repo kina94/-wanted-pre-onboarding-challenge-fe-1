@@ -1,18 +1,12 @@
 import { TodoInput } from "./../../../server/types/todos";
-import { Todo } from "../types/todo";
+import { UpdateTodo } from "../types/todo";
 import { doAxios } from "../utils/doAxios";
 const BASE_URL = "/todos";
 
 //투두 리스트 불러오기
 export const callGetTodosApi = async () => {
   const response = await doAxios({ method: "get", url: BASE_URL });
-  return response;
-};
-
-//아이디로 투두 상세 내용 조회
-export const callGetTodoByIdApi = async (id: string | undefined) => {
-  const response = await doAxios({ method: "get", url: `${BASE_URL}/${id}` });
-  return response;
+  return response?.data;
 };
 
 //투두 생성
@@ -26,11 +20,11 @@ export const callCreateTodoApi = async (data: TodoInput) => {
 };
 
 //투두 수정
-export const callUpdateTodoApi = async (id: string | undefined, data: Todo) => {
+export const callUpdateTodoApi = async ({ id, title, content }: UpdateTodo) => {
   const response = await doAxios({
     method: "put",
     url: `${BASE_URL}/${id}`,
-    data,
+    data: { title, content },
   });
   return response;
 };
