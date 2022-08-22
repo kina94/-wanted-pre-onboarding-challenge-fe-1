@@ -1,6 +1,14 @@
 # 프론트엔드 챌린지 8월 - CRUD w React Query 사전 과제
 * * *
 
+* [1. 폴더 구조](#폴더-구조)
+* [2. 주요 기술](#주요-기술)
+* [3. 구현 사항](#구현-사항)
+* [4. API 스펙](#API-스펙)
+* [5. 리팩토링 기록](#리팩토링-기록)
+
+* * *
+
 ## 폴더 구조
 ![image](https://user-images.githubusercontent.com/66938939/183906731-4841d202-bfc2-45d7-a651-032c5d05d557.png)
 
@@ -133,7 +141,8 @@
 
 * * *
 
-## 개선 과정
+## 리팩토링 기록
 > ### <a href='https://velog.io/@kina/CRUD-w-React-Query-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-1'>Refactoring 1 - 추상화, 관심사의 분리, 맥락을 이해하기 힘든 변수 고치기 </a>
 > ### <a href='https://velog.io/@kina/CRUD-w-React-Query-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-2'>Refactoring 2 - strict 옵션 적용, 타입 가드 </a>
 > ### <a href='https://velog.io/@kina/%EC%9B%90%ED%8B%B0%EB%93%9C-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A9-%EC%B1%8C%EB%A6%B0%EC%A7%80-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-3'>Refactoring 3 - Redux 적용하기
+> ### <a href='https://velog.io/@kina/%EC%9B%90%ED%8B%B0%EB%93%9C-%ED%94%84%EB%A6%AC%EC%98%A8%EB%B3%B4%EB%94%A9-%EC%B1%8C%EB%A6%B0%EC%A7%80-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-4'>Refactoring 4 - React-Query 적용하기
