@@ -1,12 +1,12 @@
-*{
+* {
   box-sizing: border-box;
-  word-break:keep-all;
+  word-break: keep-all;
   scroll-behavior: smooth;
 }
 
 .App {
   text-align: center;
-  height:100vh;
+  height: 100vh;
   background-color: #e0e7ff;
 }
 

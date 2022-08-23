@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useCreateTodo } from "../../hooks/query/todo";
 import { TodoInput } from "../../types/todo";
+import Button from "../button/Button";
 
 function TodoListFooter() {
   const createTodo = useCreateTodo();
@@ -22,7 +23,7 @@ function TodoListFooter() {
   };
 
   return (
-    <div className="flex flex-col justify-end">
+    <>
       <form ref={formRef}>
         <input
           className="px-3 mb-3 py-3 placeholder-slate-400 text-slate-600 relative bg-white bg-white rounded text-sm shadow outline-none border-none focus:outline-none focus:shadow-outline w-full pr-10"
@@ -39,13 +40,10 @@ function TodoListFooter() {
           placeholder="할일의 내용을 입력해주세요."
         ></input>
       </form>
-      <button
-        className="bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-        onClick={onTodoAddClick}
-      >
-        ADD
-      </button>
-    </div>
+      <Button className="pink" onClick={onTodoAddClick}>
+        할 일 추가하기
+      </Button>
+    </>
   );
 }
 

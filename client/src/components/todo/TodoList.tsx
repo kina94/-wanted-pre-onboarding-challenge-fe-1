@@ -7,6 +7,9 @@ import TodoTitle from "./TodoTitle";
 import { Todo } from "../../types/todo";
 import TodoEdit from "./TodoEdit";
 import { useGetTodos } from "../../hooks/query/todo";
+import Wrapper from "../layout/Wrapper";
+import Footer from "../layout/Footer";
+import Body from "../layout/Body";
 
 function TodoList() {
   const { data: todos } = useGetTodos();
@@ -20,11 +23,10 @@ function TodoList() {
   }, []);
 
   return (
-    <section className="bg-white m-auto shadow-lg rounded-md p-5">
+    <Wrapper>
       <TodoListHeader />
-      <hr />
-      <section className="h-2/3 mt-10 mb-10">
-        <ul className="items">
+      <Body>
+        <ul className="items align-middle">
           {todos?.data.map((todo: Todo, index: number) => (
             <li className="mb-5 ml-3 mr-3 " key={index} value={index}>
               <section className="flex w-full">
@@ -39,12 +41,12 @@ function TodoList() {
             </li>
           ))}
         </ul>
-      </section>
-      <hr></hr>
-      <section className="mt-3">
+      </Body>
+      {/* <hr></hr> */}
+      <Footer>
         <TodoListFooter />
-      </section>
-    </section>
+      </Footer>
+    </Wrapper>
   );
 }
 

@@ -21,6 +21,6 @@ function AuthInput<T>({ type, placeholder, register, errors }: Props<T>) {
 const defaultInputStyle =
   "pl-10 px-3 py-3 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border outline-none focus:outline-none focus:shadow-outline w-full ";
 const vaildInputStyle = defaultInputStyle + "border-slate-300";
-const invalidInputStyle = defaultInputStyle + "border-indigo-600";
+const invalidInputStyle = defaultInputStyle + "border-indigo-400";
 
 export default AuthInput;

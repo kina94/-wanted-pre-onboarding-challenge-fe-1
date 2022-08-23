@@ -1,18 +1,18 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 interface Props {
-    title: string,
-    children?: ReactNode,
+  title: string;
+  children?: ReactNode;
 }
 
-function Header({title, children}: Props) {
+function Header({ title, children }: Props) {
   return (
-    <header className="flex justify-between items-center">
-    <h1 className="text-3xl text-right p-2 font-bold leading-normal mt-0 mb-2 text-slate-500">
-      {title}
-    </h1>
-    {children}
-  </header>
-  )
+    <header className="border-b-[1px] border-slate-200 bg-indigo-500 w-full left-0 p-4 absolute top-0 flex justify-between items-center">
+      <h1 className="pl-3 text-3xl text-right font-bold leading-normal text-white">
+        {title}
+      </h1>
+      {children}
+    </header>
+  );
 }
 
-export default Header
+export default Header;
