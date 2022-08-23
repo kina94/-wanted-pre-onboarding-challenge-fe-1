@@ -7,6 +7,7 @@
 * [4. API 스펙](#api-스펙)
 * [5. 리팩토링 기록](#리팩토링-기록)
 * [6. UI 개선 전후](#ui-개선-전후)
+* [7. 리팩토링 전후 디렉토리 구조](#리팩토링-전후-디렉토리-구조)
 
 * * *
 
@@ -141,7 +142,7 @@
 
 * * *
 
-## UI 개선 전후
+## UI 개선 전후 (진행 중)
 > ### Login 화면
 - lottie 추가, input validation 추가
 
@@ -149,3 +150,11 @@
 | --- | --- |
 | ![Animation](https://user-images.githubusercontent.com/66938939/183641184-301a9ed4-42b0-46c8-b88d-e27533604589.gif) | ![Animation](https://user-images.githubusercontent.com/66938939/186227628-adc857b5-e57f-49df-add4-69b1592bfae4.gif) |
 
+
+* * *
+
+## 리팩토링 전후 디렉토리 구조
+    
+| 리팩토링 전 (첫 시작) | 리팩토링 후 |
+| --- | --- |
+| ![image](https://user-images.githubusercontent.com/66938939/186230525-b28db246-103f-4c74-ad38-63c53587e403.png) | ![image](https://user-images.githubusercontent.com/66938939/186230142-5b3b704e-e469-4e77-83c0-0f053d02e8d8.png) |
