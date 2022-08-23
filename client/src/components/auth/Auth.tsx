@@ -10,6 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Header from "../layout/Header";
 import AuthInput from "../form/AuthInput";
 import ErrorMessage from "../form/ErrorMessage";
+import Button from "../button/Button";
 interface Props {
   title: string;
   onSubmit(data: User): Promise<void>;
@@ -25,7 +26,6 @@ function Auth({ title, onSubmit }: Props) {
   });
 
   const navigate = useNavigate();
-  // const [user, setUser] = useState<User>({ email: "", password: "" });
   const { pathname } = useLocation();
 
   // 회원가입 페이지로 이동
@@ -89,38 +89,27 @@ function Auth({ title, onSubmit }: Props) {
 
           <div className="flex justify-end">
             {pathname === "/login" && (
-              <button
-                className={
-                  isValid
-                    ? "mr-2 text-indigo-500 border border-solid border-indigo-500 hover:bg-indigo-500 hover:text-white active:bg-teal-600 font-bold uppercase text-sm px-6 py-3 rounded shadow outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    : "mr-2 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                }
+              <Button
+                className={isValid ? "indigo" : "slate"}
                 type="submit"
                 disabled={!isValid}
               >
                 Login
-              </button>
+              </Button>
             )}
 
             {pathname === "/sign_up" ? (
-              <button
-                className={
-                  isValid
-                    ? "mr-3 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    : "mr-3 bg-slate-100 text-slate-400 active:bg-slate-50 font-bold uppercase text-sm px-6 py-3 rounded shadow focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                }
+              <Button
+                className={isValid ? "indigo" : "slate"}
                 type="submit"
                 disabled={!isValid}
               >
                 Submit
-              </button>
+              </Button>
             ) : (
-              <button
-                className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                onClick={onSignUpClick}
-              >
+              <Button className="indigo" onClick={onSignUpClick}>
                 SignUp
-              </button>
+              </Button>
             )}
           </div>
         </form>
