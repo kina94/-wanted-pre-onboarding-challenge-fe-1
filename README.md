@@ -1,4 +1,4 @@
-# 프론트엔드 챌린지 8월 - CRUD w React Query 사전 과제
+# 프론트엔드 챌린지 8월 - CRUD w React Query
 * * *
 
 * [1. 개요](#개요)
