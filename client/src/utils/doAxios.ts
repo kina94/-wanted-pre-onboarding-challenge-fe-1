@@ -16,12 +16,6 @@ const instance = axios.create({
 });
 
 export const doAxios = async (request: Request) => {
-  try {
-    const response = await instance(request);
-    if (response.status === 200) return response;
-  } catch (error) {
-    if (error instanceof AxiosError){
-        alert(error.response?.data.details);
-    }
-  }
+  const response = await instance(request);
+  return response;
 };
