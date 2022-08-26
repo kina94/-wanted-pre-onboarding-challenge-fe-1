@@ -9,8 +9,9 @@ import Body from "../components/layout/Body";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import Wrapper from "../components/layout/Wrapper";
-import { useLogin } from "../hooks/query/auth";
 import { User } from "../types/auth";
+import { useLogin } from "../hooks/query/auth";
+import Modal, { ModalBg } from "../components/modal/Modal";
 
 function Login() {
   const navigate = useNavigate();
@@ -66,7 +67,18 @@ function Login() {
           </div>
         </form>
       </Footer>
-      {errorState !== "" && <div>{errorState}</div>}
+      {errorState !== "" && (
+        <>
+          <div className="fixed z-10 left-0 top-0 w-full h-full animation-[fadein 0.5s forwards] bg-black bg-opacity-50">
+            <div className="absolute opacity-100 bg-white rounded-lg w-[450px] h-[200px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <p className="text-slate-500 font-bold">{errorState}</p>{" "}
+              <div>
+                <Button className="indigo">Confirm</Button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </Wrapper>
   );
 }

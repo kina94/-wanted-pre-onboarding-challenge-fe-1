@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { callLoginApi, callSignUpApi } from "../../service/authService";
 interface Props {
   errorMessage: string;
+  errorCallBackFunction?(): void;
 }
-export const useLogin = ({ errorMessage }: Props) => {
+export const useLogin = ({ errorMessage, errorCallBackFunction }: Props) => {
   const [errorState, setErrorState] = useState("");
   const navigate = useNavigate();
   const doLogin = useMutation(callLoginApi, {
@@ -15,6 +16,7 @@ export const useLogin = ({ errorMessage }: Props) => {
     },
     onError: () => {
       setErrorState(errorMessage);
+      errorCallBackFunction!();
     },
   });
 

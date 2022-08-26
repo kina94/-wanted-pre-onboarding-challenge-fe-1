@@ -51,15 +51,15 @@ function SignUp() {
         <form className="form" onSubmit={handleSubmit(handleSignUpSubmit)}>
           <Auth useForm={loginForm} />
           <div className="flex justify-end">
-            <Button className="white" onClick={() => navigate(-1)}>
-              Back
-            </Button>
             <Button
               className={isValid ? "pink" : "slate"}
               type="submit"
               disabled={!isValid}
             >
               Submit
+            </Button>
+            <Button className="white" onClick={() => navigate(-1)}>
+              Back
             </Button>
           </div>
         </form>
