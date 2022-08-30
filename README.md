@@ -143,12 +143,19 @@
 * * *
 
 ## UI 개선 전후 (진행 중)
-> ### Login 화면
+> ### Login 및 SignUp 화면
 - lottie 추가, input validation 추가
 
 | 개선 전 | 개선 후 |
 | --- | --- |
 | ![Animation](https://user-images.githubusercontent.com/66938939/183641184-301a9ed4-42b0-46c8-b88d-e27533604589.gif) | ![Animation](https://user-images.githubusercontent.com/66938939/186227628-adc857b5-e57f-49df-add4-69b1592bfae4.gif) |
+
+- 단순 alert 발생에서 modal로 변경
+- 서버단에서 로그인 실패 시 발생하는 alert message 친절하게 변경
+
+| 개선 전 | 개선 후 |
+| --- | --- |
+| ![Animation](https://user-images.githubusercontent.com/66938939/187479530-e2a97207-c613-4b19-b065-bede8074e3b8.gif) | ![Animation](https://user-images.githubusercontent.com/66938939/187478698-dd3c3335-dbc7-445e-a96a-a55436e3fb8e.gif)|
 
 
 * * *
