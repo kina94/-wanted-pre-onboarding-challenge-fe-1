@@ -1,6 +1,6 @@
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import animationData from "../resource/animation/56438-man-with-task-list.json";
+import { useForm } from "react-hook-form";
+import logoAnimation from "../resource/animation/56438-man-with-task-list.json";
 import { useNavigate } from "react-router-dom";
 import Animation from "../components/animation/Animation";
 import Auth from "../components/auth/Auth";
@@ -11,12 +11,14 @@ import Header from "../components/layout/Header";
 import Wrapper from "../components/layout/Wrapper";
 import { User } from "../types/auth";
 import { useLogin } from "../hooks/query/auth";
-import Modal, { ModalBg } from "../components/modal/Modal";
+import { useModal } from "../hooks/custom/useModal";
+import ErrorModal from "../components/modal/ErrorModal";
 
 function Login() {
+  const { isModalOpen, modalOpen, modalClose } = useModal();
   const navigate = useNavigate();
   const { doLogin, errorState } = useLogin({
-    errorMessage: "아이디 혹은 비밀번호가 잘못되었습니다.",
+    errorCallBackFunction: modalOpen,
   });
 
   const loginForm = useForm<User>({
@@ -42,7 +44,7 @@ function Login() {
       <Header title="Login" />
       <Body>
         <Animation
-          animationData={animationData}
+          animationData={logoAnimation}
           width="300px"
           height={
             errors.email?.message || errors.password?.message ? "280px" : "auto"
@@ -67,17 +69,8 @@ function Login() {
           </div>
         </form>
       </Footer>
-      {errorState !== "" && (
-        <>
-          <div className="fixed z-10 left-0 top-0 w-full h-full animation-[fadein 0.5s forwards] bg-black bg-opacity-50">
-            <div className="absolute opacity-100 bg-white rounded-lg w-[450px] h-[200px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              <p className="text-slate-500 font-bold">{errorState}</p>{" "}
-              <div>
-                <Button className="indigo">Confirm</Button>
-              </div>
-            </div>
-          </div>
-        </>
+      {isModalOpen && (
+        <ErrorModal errorState={errorState} modalCloseOption={modalClose} />
       )}
     </Wrapper>
   );

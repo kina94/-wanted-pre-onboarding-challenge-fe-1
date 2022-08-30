@@ -11,11 +11,14 @@ import Header from "../components/layout/Header";
 import Wrapper from "../components/layout/Wrapper";
 import { useSignUp } from "../hooks/query/auth";
 import { User } from "../types/auth";
+import { useModal } from "../hooks/custom/useModal";
+import ErrorModal from "../components/modal/ErrorModal";
 
 function SignUp() {
+  const { isModalOpen, modalOpen, modalClose } = useModal();
   const navigate = useNavigate();
   const { doSignUp, errorState } = useSignUp({
-    errorMessage: "아이디 혹은 비밀번호 형식을 확인해주세요.",
+    errorCallBackFunction: modalOpen,
   });
 
   const loginForm = useForm<User>({
@@ -64,7 +67,9 @@ function SignUp() {
           </div>
         </form>
       </Footer>
-      {errorState !== "" && <div>{errorState}</div>}
+      {isModalOpen && (
+        <ErrorModal errorState={errorState} modalCloseOption={modalClose} />
+      )}
     </Wrapper>
   );
 }

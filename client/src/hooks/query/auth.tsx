@@ -1,12 +1,12 @@
+import { AxiosError } from "axios";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { callLoginApi, callSignUpApi } from "../../service/authService";
 interface Props {
-  errorMessage: string;
   errorCallBackFunction?(): void;
 }
-export const useLogin = ({ errorMessage, errorCallBackFunction }: Props) => {
+export const useLogin = ({ errorCallBackFunction }: Props) => {
   const [errorState, setErrorState] = useState("");
   const navigate = useNavigate();
   const doLogin = useMutation(callLoginApi, {
@@ -14,16 +14,19 @@ export const useLogin = ({ errorMessage, errorCallBackFunction }: Props) => {
       localStorage.setItem("token", data?.data.token);
       navigate("/");
     },
-    onError: () => {
-      setErrorState(errorMessage);
-      errorCallBackFunction!();
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        setErrorState(error.response?.data.details);
+        errorCallBackFunction!();
+      }
     },
   });
 
   return { doLogin, errorState };
 };
 
-export const useSignUp = ({ errorMessage }: Props) => {
+export const useSignUp = ({ errorCallBackFunction }: Props) => {
   const [errorState, setErrorState] = useState("");
   const navigate = useNavigate();
   const doSignUp = useMutation(callSignUpApi, {
@@ -31,8 +34,11 @@ export const useSignUp = ({ errorMessage }: Props) => {
       localStorage.setItem("token", data?.data.token);
       navigate("/");
     },
-    onError: () => {
-      setErrorState(errorMessage);
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        setErrorState(error.response?.data.details);
+        errorCallBackFunction!();
+      }
     },
   });
 

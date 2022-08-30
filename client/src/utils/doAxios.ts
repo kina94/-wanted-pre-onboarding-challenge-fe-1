@@ -1,6 +1,6 @@
 import { User } from "../types/auth";
 import { Todo, TodoInput } from "./../../../server/types/todos";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 const savedToken = localStorage.getItem("token");
 const token = typeof savedToken === "string" && savedToken;
 
