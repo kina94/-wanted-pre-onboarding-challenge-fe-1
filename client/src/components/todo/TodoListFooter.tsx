@@ -1,4 +1,4 @@
-import React, { EventHandler, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useModal } from "../../hooks/custom/useModal";
 import { useCreateTodo } from "../../hooks/query/todo";
 import { TodoInput } from "../../types/todo";
@@ -10,7 +10,6 @@ function TodoListFooter() {
   const { createTodo, errorState } = useCreateTodo({
     errorCallBackFunction: modalOpen,
   });
-  const formRef = useRef<HTMLFormElement>(null);
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -24,13 +23,12 @@ function TodoListFooter() {
   // 투두 생성
   const onTodoAddClick = () => {
     createTodo.mutate(newTodo);
-    formRef.current?.reset();
+    setNewTodo({ title: "", content: "" });
   };
 
   return (
     <>
       <form
-        ref={formRef}
         onKeyPress={(e: React.KeyboardEvent) =>
           e.key === "Enter" && onTodoAddClick()
         }
