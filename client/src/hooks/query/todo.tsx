@@ -1,19 +1,31 @@
+import { AxiosError } from "axios";
+import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as todoService from "../../service/todoService";
-
+interface Props {
+  errorCallBackFunction?(): void;
+}
 export const useGetTodos = () => {
   return useQuery("todos", todoService.callGetTodosApi, {
     refetchOnWindowFocus: false,
   });
 };
 
-export const useCreateTodo = () => {
+export const useCreateTodo = ({ errorCallBackFunction }: Props) => {
+  const [errorState, setErrorState] = useState("");
   const queryClient = useQueryClient();
-  return useMutation(todoService.callCreateTodoApi, {
+  const createTodo = useMutation(todoService.callCreateTodoApi, {
     onSuccess: () => {
       queryClient.invalidateQueries("todos");
     },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        setErrorState(error.response?.data.details);
+        errorCallBackFunction!();
+      }
+    },
   });
+  return { createTodo, errorState };
 };
 
 export const useDeleteTodo = () => {

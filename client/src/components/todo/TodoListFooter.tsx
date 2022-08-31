@@ -1,10 +1,16 @@
 import React, { useRef, useState } from "react";
+import { useModal } from "../../hooks/custom/useModal";
 import { useCreateTodo } from "../../hooks/query/todo";
 import { TodoInput } from "../../types/todo";
 import Button from "../button/Button";
+import ErrorModal from "../modal/ErrorModal";
 
 function TodoListFooter() {
-  const createTodo = useCreateTodo();
+  const { isModalOpen, modalClose, modalOpen } = useModal();
+  const { createTodo, errorState } = useCreateTodo({
+    errorCallBackFunction: modalOpen,
+  });
+  console.log(errorState);
   const formRef = useRef<HTMLFormElement>(null);
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
@@ -43,6 +49,9 @@ function TodoListFooter() {
       <Button className="pink" onClick={onTodoAddClick}>
         할 일 추가하기
       </Button>
+      {isModalOpen && (
+        <ErrorModal errorState={errorState} modalCloseOption={modalClose} />
+      )}
     </>
   );
 }

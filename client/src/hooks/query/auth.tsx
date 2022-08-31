@@ -16,7 +16,6 @@ export const useLogin = ({ errorCallBackFunction }: Props) => {
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
-        console.log(error);
         setErrorState(error.response?.data.details);
         errorCallBackFunction!();
       }
