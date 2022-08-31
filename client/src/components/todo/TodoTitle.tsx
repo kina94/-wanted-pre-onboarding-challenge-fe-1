@@ -16,7 +16,11 @@ function TodoTitle({ todo, index }: Props) {
 
   // 투두 상세보기
   const navigateTodoInfo = () => {
-    navigate(`/${todo.id}`);
+    if (currentUrl === todo.id) {
+      navigate("/");
+    } else {
+      navigate(`/${todo.id}`);
+    }
   };
 
   //수정 모드 전환

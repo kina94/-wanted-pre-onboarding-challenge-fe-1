@@ -25,7 +25,11 @@ function TodoEdit({ todo, index }: Props) {
 
   return (
     <div className="p-5 uppercase rounded-md text-slate-600 bg-slate-200">
-      <form>
+      <form
+        onKeyPress={(e: React.KeyboardEvent) =>
+          e.key === "Enter" && onTodoUpdateClick()
+        }
+      >
         <input
           className="mb-1 bg-white border-none opacity-85 ext-indigo-600 text-md font-bold w-full"
           type="text"
