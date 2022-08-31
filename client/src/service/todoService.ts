@@ -20,11 +20,16 @@ export const callCreateTodoApi = async (data: TodoInput) => {
 };
 
 //투두 수정
-export const callUpdateTodoApi = async ({ id, title, content }: UpdateTodo) => {
+export const callUpdateTodoApi = async ({
+  id,
+  title,
+  content,
+  isDone,
+}: UpdateTodo) => {
   const response = await doAxios({
     method: "put",
     url: `${BASE_URL}/${id}`,
-    data: { title, content },
+    data: { title, content, isDone },
   });
   return response;
 };
@@ -34,6 +39,15 @@ export const callDeleteTodoApi = async (id: string) => {
   const response = await doAxios({
     method: "delete",
     url: `${BASE_URL}/${id}`,
+  });
+  return response;
+};
+
+//투두 삭제
+export const callDeleteDoneTodosApi = async () => {
+  const response = await doAxios({
+    method: "delete",
+    url: `${BASE_URL}`,
   });
   return response;
 };

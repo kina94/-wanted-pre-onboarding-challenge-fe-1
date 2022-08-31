@@ -53,12 +53,12 @@ export const getTodoById = (req: Request, res: Response) => {
 
 export const updateTodo = async (req: Request, res: Response) => {
   const todoId = req.params.id;
-  const { title, content } = req.body;
+  const { title, content, isDone } = req.body;
 
   const todo = todoService.findTodo((todo) => todo.id === todoId);
 
   if (todo) {
-    await todoService.updateTodo(todo, { title, content });
+    await todoService.updateTodo(todo, { title, content, isDone });
 
     return res.status(StatusCodes.OK).send(createResponse(todo));
   } else {
@@ -80,6 +80,22 @@ export const deleteTodo = async (req: Request, res: Response) => {
   }
 
   await todoService.deleteTodo(todo);
+
+  return res.status(StatusCodes.OK).send(createResponse(null));
+};
+
+export const deleteDoneTodos = async (req: Request, res: Response) => {
+  // const { id: todoId } = req.params;
+
+  // const todo = todoService.findTodo((todo) => todo.id === todoId);
+
+  if (!req.params) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .send(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
+  }
+
+  await todoService.deleteDoneTodos();
 
   return res.status(StatusCodes.OK).send(createResponse(null));
 };

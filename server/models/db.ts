@@ -56,6 +56,7 @@ export const create = <T>(content: any): T => {
     id: nanoid(),
     createdAt: timestamp,
     updatedAt: timestamp,
+    isDone: false,
   };
 };
 

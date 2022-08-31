@@ -30,7 +30,7 @@ function TodoList() {
           {todos?.data.map((todo: Todo, index: number) => (
             <li className="mb-5 ml-3 mr-3 " key={index} value={index}>
               <section className="flex w-full">
-                <TodoTitle todo={todo} index={index} />
+                <TodoTitle todo={todo} />
               </section>
               <section className="w-full text-left mt-2">
                 {currentUrl === todo.id && <TodoInfo todo={todo} />}
@@ -44,7 +44,7 @@ function TodoList() {
       </Body>
       {/* <hr></hr> */}
       <Footer>
-        <TodoListFooter />
+        <TodoListFooter todos={todos?.data} />
       </Footer>
     </Wrapper>
   );

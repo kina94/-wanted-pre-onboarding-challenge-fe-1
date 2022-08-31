@@ -4,6 +4,7 @@ export interface Todo {
   id: string;
   title: string;
   updatedAt: string;
+  isDone: boolean;
 }
 
 export type TodoInput = Pick<Todo, "title" | "content">;

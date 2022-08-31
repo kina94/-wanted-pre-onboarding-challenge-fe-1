@@ -37,6 +37,15 @@ export const useDeleteTodo = () => {
   });
 };
 
+export const useDeleteDoneTodos = () => {
+  const queryClient = useQueryClient();
+  return useMutation(todoService.callDeleteDoneTodosApi, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+    },
+  });
+};
+
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
   return useMutation(todoService.callUpdateTodoApi, {

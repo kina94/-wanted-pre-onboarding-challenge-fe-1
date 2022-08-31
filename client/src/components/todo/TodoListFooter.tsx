@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useModal } from "../../hooks/custom/useModal";
-import { useCreateTodo } from "../../hooks/query/todo";
-import { TodoInput } from "../../types/todo";
+import { useCreateTodo, useDeleteDoneTodos } from "../../hooks/query/todo";
+import { Todo, TodoInput } from "../../types/todo";
 import Button from "../button/Button";
 import ErrorModal from "../modal/ErrorModal";
 
-function TodoListFooter() {
+function TodoListFooter<T>(todos: T) {
+  const formRef = useRef<HTMLFormElement>(null);
   const { isModalOpen, modalClose, modalOpen } = useModal();
   const { createTodo, errorState } = useCreateTodo({
     errorCallBackFunction: modalOpen,
   });
+  const deleteDoneTodos = useDeleteDoneTodos();
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -21,16 +23,22 @@ function TodoListFooter() {
   };
 
   // 투두 생성
-  const onTodoAddClick = () => {
+  const onAddTodoClick = () => {
     createTodo.mutate(newTodo);
+    formRef.current?.reset();
     setNewTodo({ title: "", content: "" });
+  };
+
+  const onDeleteFinishedTodoClick = () => {
+    deleteDoneTodos.mutate();
   };
 
   return (
     <>
       <form
+        ref={formRef}
         onKeyPress={(e: React.KeyboardEvent) =>
-          e.key === "Enter" && onTodoAddClick()
+          e.key === "Enter" && onAddTodoClick()
         }
       >
         <input
@@ -48,8 +56,11 @@ function TodoListFooter() {
           placeholder="할일의 내용을 입력해주세요."
         ></input>
       </form>
-      <Button className="pink" onClick={onTodoAddClick}>
-        할 일 추가하기
+      <Button className="pink" onClick={onAddTodoClick}>
+        할 일 추가
+      </Button>
+      <Button className="indigo" onClick={onDeleteFinishedTodoClick}>
+        완료된 할 일 모두 삭제
       </Button>
       {isModalOpen && (
         <ErrorModal errorState={errorState} modalCloseOption={modalClose} />

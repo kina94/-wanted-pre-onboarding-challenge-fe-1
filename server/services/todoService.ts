@@ -37,3 +37,12 @@ export const deleteTodo = async (todoToDelete: Todo) => {
 
   return todoToDelete;
 };
+
+export const deleteDoneTodos = async () => {
+  const DoneTodos = db.data?.todos.filter((todo) => todo.isDone === false)!;
+  (db.data as Data).todos = DoneTodos;
+
+  await db.write();
+
+  return DoneTodos;
+};
