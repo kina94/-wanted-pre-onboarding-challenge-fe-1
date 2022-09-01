@@ -3,7 +3,7 @@ import {
   EMAIL_VALIDATION,
   PASSWORD_VALIDATION,
 } from "../../utils/submitValidator";
-import AuthInput from "../form/AuthInput";
+import AuthInput from "./AuthInput";
 import ErrorMessage from "../form/ErrorMessage";
 interface Props {
   useForm: any;
