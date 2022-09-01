@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useModal } from "../../hooks/custom/useModal";
 import { useCreateTodo } from "../../hooks/query/todo";
+import { callCreateTodoApi } from "../../service/todoService";
 import { Todo, TodoInput } from "../../types/todo";
+import { useMutationQuery } from "../../utils/doQuery";
 import Button from "../button/Button";
 import Header from "../layout/Header";
 import ErrorModal from "../modal/ErrorModal";
@@ -18,18 +20,14 @@ function TodoAddForm({ addFormClose, todo }: Props) {
   } = useModal();
 
   const { createTodo, errorState: createTodoErrorState } = useCreateTodo({
-    successCallBackFunction: addFormClose,
-    errorCallBackFunction: errorModalOpen,
+    successListner: addFormClose,
+    errorListner: errorModalOpen,
   });
 
-  const [newTodo, setNewTodo] = useState<TodoInput | Todo>(
-    todo
-      ? todo
-      : {
-          title: "",
-          content: "",
-        }
-  );
+  const [newTodo, setNewTodo] = useState<TodoInput>({
+    title: "",
+    content: "",
+  });
   //새로운 투두 입력 이벤트
   const onChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>

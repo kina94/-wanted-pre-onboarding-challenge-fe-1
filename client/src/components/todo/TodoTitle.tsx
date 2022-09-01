@@ -17,7 +17,7 @@ function TodoTitle({ todo }: Props) {
     modalClose: editFormClose,
   } = useModal();
   const { updateTodo } = useUpdateTodo({});
-  const deleteTodo = useDeleteTodo();
+  const { deleteTodo } = useDeleteTodo();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
 

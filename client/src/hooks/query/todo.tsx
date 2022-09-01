@@ -1,11 +1,10 @@
-import { AxiosError } from "axios";
-import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import * as todoService from "../../service/todoService";
+import { useMutationQuery } from "../../utils/doQuery";
 
 interface Props {
-  errorCallBackFunction?(): void;
-  successCallBackFunction?(): void;
+  errorListner?(): void;
+  successListner?(): void;
 }
 export const useGetTodos = () => {
   return useQuery("todos", todoService.callGetTodosApi, {
@@ -13,70 +12,39 @@ export const useGetTodos = () => {
   });
 };
 
-export const useCreateTodo = ({
-  errorCallBackFunction,
-  successCallBackFunction,
-}: Props) => {
-  const [errorState, setErrorState] = useState("");
-  const queryClient = useQueryClient();
-  const createTodo = useMutation(todoService.callCreateTodoApi, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-      successCallBackFunction!();
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        setErrorState(error.response?.data.details);
-        errorCallBackFunction!();
-      }
-    },
+export const useCreateTodo = ({ errorListner, successListner }: Props) => {
+  const { mutationResults: createTodo, errorState } = useMutationQuery({
+    mutationFunction: todoService.callCreateTodoApi,
+    successListner,
+    errorListner,
+    key: "todos",
   });
   return { createTodo, errorState };
 };
 
-export const useUpdateTodo = ({
-  errorCallBackFunction,
-  successCallBackFunction,
-}: Props) => {
-  const [errorState, setErrorState] = useState("");
-  const queryClient = useQueryClient();
-  const updateTodo = useMutation(todoService.callUpdateTodoApi, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-      successCallBackFunction!();
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        setErrorState(error.response?.data.details);
-        errorCallBackFunction!();
-      }
-    },
+export const useUpdateTodo = ({ errorListner, successListner }: Props) => {
+  const { mutationResults: updateTodo, errorState } = useMutationQuery({
+    mutationFunction: todoService.callUpdateTodoApi,
+    successListner,
+    errorListner,
+    key: "todos",
   });
   return { updateTodo, errorState };
 };
 
 export const useDeleteTodo = () => {
-  const queryClient = useQueryClient();
-  return useMutation(todoService.callDeleteTodoApi, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
+  const { mutationResults: deleteTodo, errorState } = useMutationQuery({
+    mutationFunction: todoService.callDeleteTodoApi,
+    key: "todos",
   });
+  return { deleteTodo, errorState };
 };
 
-export const useDeleteDoneTodos = ({ errorCallBackFunction }: Props) => {
-  const [errorState, setErrorState] = useState("");
-  const queryClient = useQueryClient();
-  const deleteDoneTodos = useMutation(todoService.callDeleteDoneTodosApi, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-    onError: (error) => {
-      if (error instanceof AxiosError) {
-        setErrorState(error.response?.data.details);
-        errorCallBackFunction!();
-      }
-    },
+export const useDeleteDoneTodos = ({ errorListner }: Props) => {
+  const { mutationResults: deleteDoneTodos, errorState } = useMutationQuery({
+    mutationFunction: todoService.callDeleteDoneTodosApi,
+    errorListner,
+    key: "todos",
   });
   return { deleteDoneTodos, errorState };
 };

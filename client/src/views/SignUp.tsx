@@ -18,7 +18,7 @@ function SignUp() {
   const { isModalOpen, modalOpen, modalClose } = useModal();
   const navigate = useNavigate();
   const { doSignUp, errorState } = useSignUp({
-    errorCallBackFunction: modalOpen,
+    errorListner: modalOpen,
   });
 
   const loginForm = useForm<User>({

@@ -18,8 +18,8 @@ function TodoEdit({ todo, editFormClose }: Props) {
   } = useModal();
 
   const { updateTodo, errorState: updateTodoErrorState } = useUpdateTodo({
-    successCallBackFunction: editFormClose,
-    errorCallBackFunction: errorModalOpen,
+    successListner: editFormClose,
+    errorListner: errorModalOpen,
   });
 
   //초기값 세팅

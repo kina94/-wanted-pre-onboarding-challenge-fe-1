@@ -4,9 +4,9 @@ import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { callLoginApi, callSignUpApi } from "../../service/authService";
 interface Props {
-  errorCallBackFunction?(): void;
+  errorListner?(): void;
 }
-export const useLogin = ({ errorCallBackFunction }: Props) => {
+export const useLogin = ({ errorListner }: Props) => {
   const [errorState, setErrorState] = useState("");
   const navigate = useNavigate();
   const doLogin = useMutation(callLoginApi, {
@@ -17,7 +17,7 @@ export const useLogin = ({ errorCallBackFunction }: Props) => {
     onError: (error) => {
       if (error instanceof AxiosError) {
         setErrorState(error.response?.data.details);
-        errorCallBackFunction!();
+        errorListner!();
       }
     },
   });
@@ -25,7 +25,7 @@ export const useLogin = ({ errorCallBackFunction }: Props) => {
   return { doLogin, errorState };
 };
 
-export const useSignUp = ({ errorCallBackFunction }: Props) => {
+export const useSignUp = ({ errorListner }: Props) => {
   const [errorState, setErrorState] = useState("");
   const navigate = useNavigate();
   const doSignUp = useMutation(callSignUpApi, {
@@ -36,7 +36,7 @@ export const useSignUp = ({ errorCallBackFunction }: Props) => {
     onError: (error) => {
       if (error instanceof AxiosError) {
         setErrorState(error.response?.data.details);
-        errorCallBackFunction!();
+        errorListner!();
       }
     },
   });

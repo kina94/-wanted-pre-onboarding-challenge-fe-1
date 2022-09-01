@@ -18,7 +18,7 @@ function TodoListFooter(todos: any) {
     modalOpen: addFormOpen,
   } = useModal();
   const { deleteDoneTodos, errorState: deleteErrorState } = useDeleteDoneTodos({
-    errorCallBackFunction: errorModalOpen,
+    errorListner: errorModalOpen,
   });
 
   const onAddTodoClick = () => {
