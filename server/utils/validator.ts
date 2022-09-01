@@ -37,6 +37,7 @@ export const USER_VALIDATION_ERRORS = {
 };
 
 export const TODO_VALIDATION_ERRORS = {
+  DONE_TODO_NOT_FOUND: "삭제할 완료된 할 일이 없습니다.",
   TODO_SOMETHING_WRONG: "todo를 찾는 도중 문제가 생겼습니다",
   INVALID_VALUE: "할일의 제목을 입력해주세요.",
 };

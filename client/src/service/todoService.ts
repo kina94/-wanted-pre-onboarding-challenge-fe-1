@@ -1,4 +1,4 @@
-import { TodoInput } from "./../../../server/types/todos";
+import { TodoInput, Todo } from "./../../../server/types/todos";
 import { UpdateTodo } from "../types/todo";
 import { doAxios } from "../utils/doAxios";
 const BASE_URL = "/todos";
@@ -44,10 +44,11 @@ export const callDeleteTodoApi = async (id: string) => {
 };
 
 //투두 삭제
-export const callDeleteDoneTodosApi = async () => {
+export const callDeleteDoneTodosApi = async (data: Todo[]) => {
   const response = await doAxios({
     method: "delete",
     url: `${BASE_URL}`,
+    data,
   });
   return response;
 };

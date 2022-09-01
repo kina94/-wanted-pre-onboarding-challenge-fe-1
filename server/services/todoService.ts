@@ -43,6 +43,4 @@ export const deleteDoneTodos = async () => {
   (db.data as Data).todos = DoneTodos;
 
   await db.write();
-
-  return DoneTodos;
 };

@@ -2,6 +2,7 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as todoService from "../../service/todoService";
+import { Todo } from "../../types/todo";
 interface Props {
   errorCallBackFunction?(): void;
 }
@@ -37,13 +38,21 @@ export const useDeleteTodo = () => {
   });
 };
 
-export const useDeleteDoneTodos = () => {
+export const useDeleteDoneTodos = ({ errorCallBackFunction }: Props) => {
+  const [errorState, setErrorState] = useState("");
   const queryClient = useQueryClient();
-  return useMutation(todoService.callDeleteDoneTodosApi, {
+  const deleteDoneTodos = useMutation(todoService.callDeleteDoneTodosApi, {
     onSuccess: () => {
       queryClient.invalidateQueries("todos");
     },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        setErrorState(error.response?.data.details);
+        errorCallBackFunction!();
+      }
+    },
   });
+  return { deleteDoneTodos, errorState };
 };
 
 export const useUpdateTodo = () => {

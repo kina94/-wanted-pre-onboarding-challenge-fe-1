@@ -7,7 +7,7 @@ const token = typeof savedToken === "string" && savedToken;
 interface Request {
   method: string;
   url: string;
-  data?: Todo | TodoInput | User;
+  data?: Todo[] | Todo | TodoInput | User;
 }
 
 const instance = axios.create({

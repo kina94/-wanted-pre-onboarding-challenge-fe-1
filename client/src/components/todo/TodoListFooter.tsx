@@ -5,13 +5,16 @@ import { Todo, TodoInput } from "../../types/todo";
 import Button from "../button/Button";
 import ErrorModal from "../modal/ErrorModal";
 
-function TodoListFooter<T>(todos: T) {
+function TodoListFooter(todos: any) {
+  const [modalKey, setModalKey] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const { isModalOpen, modalClose, modalOpen } = useModal();
-  const { createTodo, errorState } = useCreateTodo({
+  const { createTodo, errorState: createTodoErrorStates } = useCreateTodo({
     errorCallBackFunction: modalOpen,
   });
-  const deleteDoneTodos = useDeleteDoneTodos();
+  const { deleteDoneTodos, errorState: deleteErrorState } = useDeleteDoneTodos({
+    errorCallBackFunction: modalOpen,
+  });
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -27,10 +30,12 @@ function TodoListFooter<T>(todos: T) {
     createTodo.mutate(newTodo);
     formRef.current?.reset();
     setNewTodo({ title: "", content: "" });
+    setModalKey("add");
   };
 
   const onDeleteFinishedTodoClick = () => {
-    deleteDoneTodos.mutate();
+    deleteDoneTodos.mutate(todos);
+    setModalKey("delete");
   };
 
   return (
@@ -63,7 +68,12 @@ function TodoListFooter<T>(todos: T) {
         완료된 할 일 모두 삭제
       </Button>
       {isModalOpen && (
-        <ErrorModal errorState={errorState} modalCloseOption={modalClose} />
+        <ErrorModal
+          errorState={
+            modalKey === "delete" ? deleteErrorState : createTodoErrorStates
+          }
+          modalCloseOption={modalClose}
+        />
       )}
     </>
   );

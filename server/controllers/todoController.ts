@@ -1,3 +1,4 @@
+import { Todo } from "./../types/todos";
 import type { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 
@@ -85,17 +86,14 @@ export const deleteTodo = async (req: Request, res: Response) => {
 };
 
 export const deleteDoneTodos = async (req: Request, res: Response) => {
-  // const { id: todoId } = req.params;
-
-  // const todo = todoService.findTodo((todo) => todo.id === todoId);
-
-  if (!req.params) {
+  const { todos } = req.body;
+  const doneTodos = todos.filter((todo: Todo) => todo.isDone === true);
+  if (doneTodos.length === 0) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .send(createError(TODO_VALIDATION_ERRORS.TODO_SOMETHING_WRONG));
+      .send(createError(TODO_VALIDATION_ERRORS.DONE_TODO_NOT_FOUND));
+  } else {
+    await todoService.deleteDoneTodos();
+    return res.status(StatusCodes.OK).send(createResponse(null));
   }
-
-  await todoService.deleteDoneTodos();
-
-  return res.status(StatusCodes.OK).send(createResponse(null));
 };
