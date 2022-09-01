@@ -12,7 +12,8 @@
 * * *
 
 ## 개요
-![Animation](https://user-images.githubusercontent.com/66938939/186232449-5e27a6d3-bfe4-4c50-97c4-33127f3970ef.gif)
+![Animation](https://user-images.githubusercontent.com/66938939/187980293-3320cce8-5d6b-4a08-95b9-81397215ab0e.gif)
+
 - 로그인/회원가입과 CRUD 기능이 있는 투두 웹 앱입니다.
 - 원티드 프리온보딩 챌린지를 통해 컴포넌트의 분리, 인증과 인가, OOP와 추상화, 클린 코드는 무엇인가에 대해 열심히 고민하고 배우면서 리팩토링을 하고 있으며 현재 UI 개선을 위한 리팩토링 진행 중입니다.
 - NodeJs로 구축된 server를 NodeJs express로 client단과 직접 연결했습니다. 투두의 CRUD API 요청은 Axios를 사용합니다.
@@ -158,6 +159,19 @@
 | 개선 전 | 개선 후 |
 | --- | --- |
 | ![Animation](https://user-images.githubusercontent.com/66938939/187479530-e2a97207-c613-4b19-b065-bede8074e3b8.gif) | ![Animation](https://user-images.githubusercontent.com/66938939/187478698-dd3c3335-dbc7-445e-a96a-a55436e3fb8e.gif)|
+
+> ### Todo List 화면
+- 투두 추가 / 수정 모달로 변경
+
+| 개선 전 | 개선 후 |
+| --- | --- |
+| ![Animation](https://user-images.githubusercontent.com/66938939/187980733-6f2a0535-4241-42cd-8fc9-03f36f78d773.gif) | ![Animation](https://user-images.githubusercontent.com/66938939/187978625-d1776e41-e1ce-44b3-a8e3-3fefc2a04323.gif) |
+
+- 투두 완료하기 / 완료된 투두 삭제하기 추가
+
+| 개선 전 | 개선 후 |
+| --- | --- |
+| 기능 없음 | ![Animation](https://user-images.githubusercontent.com/66938939/187979202-8311dc21-1cec-43ec-a978-a3fb1f7e053e.gif) |
 
 
 * * *
