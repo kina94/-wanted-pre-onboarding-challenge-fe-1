@@ -180,4 +180,4 @@
     
 | 리팩토링 전 (첫 시작) | 리팩토링 후 |
 | --- | --- |
-| ![image](https://user-images.githubusercontent.com/66938939/186230525-b28db246-103f-4c74-ad38-63c53587e403.png) | ![image](https://user-images.githubusercontent.com/66938939/186230142-5b3b704e-e469-4e77-83c0-0f053d02e8d8.png) |
+| ![image](https://user-images.githubusercontent.com/66938939/186230525-b28db246-103f-4c74-ad38-63c53587e403.png) | ![image](https://user-images.githubusercontent.com/66938939/187982139-432d5d5b-b7f8-48ad-9390-193db1268d15.png) |
