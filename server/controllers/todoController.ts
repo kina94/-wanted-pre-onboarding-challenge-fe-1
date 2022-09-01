@@ -87,7 +87,7 @@ export const deleteTodo = async (req: Request, res: Response) => {
 
 export const deleteDoneTodos = async (req: Request, res: Response) => {
   const { todos } = req.body;
-  const doneTodos = todos.filter((todo: Todo) => todo.isDone === true);
+  const doneTodos = todos?.filter((todo: Todo) => todo.isDone === true);
   if (doneTodos.length === 0) {
     return res
       .status(StatusCodes.BAD_REQUEST)

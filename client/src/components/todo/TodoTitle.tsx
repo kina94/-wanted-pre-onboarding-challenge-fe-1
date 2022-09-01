@@ -1,16 +1,22 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { idText } from "typescript";
+import { useModal } from "../../hooks/custom/useModal";
 import { useDeleteTodo, useUpdateTodo } from "../../hooks/query/todo";
 import { Todo } from "../../types/todo";
+import Modal from "../modal/Modal";
+import TodoEdit from "./TodoEdit";
 
 interface Props {
   todo: Todo;
 }
 
 function TodoTitle({ todo }: Props) {
-  const updateTodo = useUpdateTodo();
+  const {
+    isModalOpen: isEditFormOpen,
+    modalOpen: editFormOpen,
+    modalClose: editFormClose,
+  } = useModal();
+  const { updateTodo } = useUpdateTodo({});
   const deleteTodo = useDeleteTodo();
   const navigate = useNavigate();
   const { "*": currentUrl } = useParams();
@@ -22,11 +28,6 @@ function TodoTitle({ todo }: Props) {
     } else {
       navigate(`/${todo.id}`);
     }
-  };
-
-  //수정 모드 전환
-  const navigateTodoEdit = () => {
-    navigate(`/${todo.id}/edit`);
   };
 
   // 투두 삭제 버튼 클릭
@@ -64,7 +65,7 @@ function TodoTitle({ todo }: Props) {
         <button
           className="mr-3 text-slate-500 hover:text-indigo-500"
           id="edit"
-          onClick={navigateTodoEdit}
+          onClick={editFormOpen}
         >
           <i className="fas fa-pen" id="edit"></i>
         </button>
@@ -76,6 +77,11 @@ function TodoTitle({ todo }: Props) {
           <i className="fas fa-trash-alt" id="delete"></i>
         </button>
       </div>
+      {isEditFormOpen && (
+        <Modal>
+          <TodoEdit todo={todo} editFormClose={editFormClose} />
+        </Modal>
+      )}
     </>
   );
 }

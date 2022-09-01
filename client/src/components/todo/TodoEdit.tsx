@@ -1,21 +1,33 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useModal } from "../../hooks/custom/useModal";
 import { useUpdateTodo } from "../../hooks/query/todo";
 import { Todo } from "../../types/todo";
+import Button from "../button/Button";
+import Header from "../layout/Header";
+import ErrorModal from "../modal/ErrorModal";
+import TodoForm from "./TodoForm";
 interface Props {
   todo: Todo;
-  index: number;
+  editFormClose(): void;
 }
-function TodoEdit({ todo, index }: Props) {
-  const updateTodo = useUpdateTodo();
-  const navigate = useNavigate();
+function TodoEdit({ todo, editFormClose }: Props) {
+  const {
+    isModalOpen: isErrorModalOpen,
+    modalClose: errorModalClose,
+    modalOpen: errorModalOpen,
+  } = useModal();
+
+  const { updateTodo, errorState: updateTodoErrorState } = useUpdateTodo({
+    successCallBackFunction: editFormClose,
+    errorCallBackFunction: errorModalOpen,
+  });
+
   //초기값 세팅
   const [newTodo, setNewTodo] = useState<Todo>(todo);
 
   // 수정하기 버튼 클릭
   const onTodoUpdateClick = async () => {
     updateTodo.mutate(newTodo);
-    navigate(`/${todo.id}`);
   };
 
   //수정 내용 입력 이벤트
@@ -24,42 +36,24 @@ function TodoEdit({ todo, index }: Props) {
   };
 
   return (
-    <div className="p-5 uppercase rounded-md text-slate-600 bg-slate-200">
-      <form
-        onKeyPress={(e: React.KeyboardEvent) =>
-          e.key === "Enter" && onTodoUpdateClick()
-        }
-      >
-        <input
-          className="mb-1 bg-white border-none opacity-85 ext-indigo-600 text-md font-bold w-full"
-          type="text"
-          id="title"
-          value={newTodo?.title}
-          onChange={onChange}
-        ></input>
-        <input
-          className="bg-white border-none opacity-80 font-normal text-sm leading-normal w-full"
-          type="text"
-          id="content"
-          value={newTodo?.content}
-          onChange={onChange}
-        ></input>
-      </form>
-      <div className="flex justify-end mt-2">
-        <button
-          className="mr-2 bg-indigo-500 text-white active:bg-indigo-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-          onClick={onTodoUpdateClick}
-        >
-          수정하기
-        </button>
-        <button
-          className="bg-slate-500 text-white active:bg-slate-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150"
-          onClick={() => navigate(`/${todo.id}`)}
-        >
-          취소하기
-        </button>
+    <>
+      <Header title="Todo Edit"></Header>
+      <TodoForm onChange={onChange} todo={newTodo} />
+      <div className="flex">
+        <Button className="pink" onClick={onTodoUpdateClick}>
+          수정
+        </Button>
+        <Button className="indigo" onClick={editFormClose}>
+          취소
+        </Button>
       </div>
-    </div>
+      {isErrorModalOpen && (
+        <ErrorModal
+          errorState={updateTodoErrorState}
+          modalCloseOption={errorModalClose}
+        />
+      )}
+    </>
   );
 }
 

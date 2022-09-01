@@ -2,9 +2,10 @@ import { AxiosError } from "axios";
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import * as todoService from "../../service/todoService";
-import { Todo } from "../../types/todo";
+
 interface Props {
   errorCallBackFunction?(): void;
+  successCallBackFunction?(): void;
 }
 export const useGetTodos = () => {
   return useQuery("todos", todoService.callGetTodosApi, {
@@ -12,12 +13,16 @@ export const useGetTodos = () => {
   });
 };
 
-export const useCreateTodo = ({ errorCallBackFunction }: Props) => {
+export const useCreateTodo = ({
+  errorCallBackFunction,
+  successCallBackFunction,
+}: Props) => {
   const [errorState, setErrorState] = useState("");
   const queryClient = useQueryClient();
   const createTodo = useMutation(todoService.callCreateTodoApi, {
     onSuccess: () => {
       queryClient.invalidateQueries("todos");
+      successCallBackFunction!();
     },
     onError: (error) => {
       if (error instanceof AxiosError) {
@@ -27,6 +32,27 @@ export const useCreateTodo = ({ errorCallBackFunction }: Props) => {
     },
   });
   return { createTodo, errorState };
+};
+
+export const useUpdateTodo = ({
+  errorCallBackFunction,
+  successCallBackFunction,
+}: Props) => {
+  const [errorState, setErrorState] = useState("");
+  const queryClient = useQueryClient();
+  const updateTodo = useMutation(todoService.callUpdateTodoApi, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("todos");
+      successCallBackFunction!();
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        setErrorState(error.response?.data.details);
+        errorCallBackFunction!();
+      }
+    },
+  });
+  return { updateTodo, errorState };
 };
 
 export const useDeleteTodo = () => {
@@ -53,13 +79,4 @@ export const useDeleteDoneTodos = ({ errorCallBackFunction }: Props) => {
     },
   });
   return { deleteDoneTodos, errorState };
-};
-
-export const useUpdateTodo = () => {
-  const queryClient = useQueryClient();
-  return useMutation(todoService.callUpdateTodoApi, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("todos");
-    },
-  });
 };
