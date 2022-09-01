@@ -43,7 +43,7 @@ export const callDeleteTodoApi = async (id: string) => {
   return response;
 };
 
-//투두 삭제
+//완료된 할 일 삭제
 export const callDeleteDoneTodosApi = async (data: Todo[]) => {
   const response = await doAxios({
     method: "delete",

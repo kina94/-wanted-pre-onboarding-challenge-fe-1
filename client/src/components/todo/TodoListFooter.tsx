@@ -15,6 +15,7 @@ function TodoListFooter(todos: any) {
   const { deleteDoneTodos, errorState: deleteErrorState } = useDeleteDoneTodos({
     errorCallBackFunction: modalOpen,
   });
+
   const [newTodo, setNewTodo] = useState<TodoInput>({
     title: "",
     content: "",
@@ -28,14 +29,18 @@ function TodoListFooter(todos: any) {
   // 투두 생성
   const onAddTodoClick = () => {
     createTodo.mutate(newTodo);
-    formRef.current?.reset();
-    setNewTodo({ title: "", content: "" });
     setModalKey("add");
+    todoFormReset();
   };
 
   const onDeleteFinishedTodoClick = () => {
     deleteDoneTodos.mutate(todos);
     setModalKey("delete");
+  };
+
+  const todoFormReset = () => {
+    formRef.current?.reset();
+    setNewTodo({ title: "", content: "" });
   };
 
   return (
