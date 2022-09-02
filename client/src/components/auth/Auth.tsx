@@ -4,7 +4,7 @@ import {
   PASSWORD_VALIDATION,
 } from "../../utils/submitValidator";
 import AuthInput from "./AuthInput";
-import ErrorMessage from "../form/ErrorMessage";
+import ErrorMessage from "../alert/ErrorMessage";
 interface Props {
   useForm: any;
 }
