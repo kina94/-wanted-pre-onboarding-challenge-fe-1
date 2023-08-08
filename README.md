@@ -15,7 +15,7 @@
 ![Animation](https://user-images.githubusercontent.com/66938939/187980293-3320cce8-5d6b-4a08-95b9-81397215ab0e.gif)
 
 - 로그인/회원가입과 CRUD 기능이 있는 투두 웹 앱입니다.
-- 원티드 프리온보딩 챌린지를 통해 컴포넌트의 분리, 인증과 인가, OOP와 추상화, 클린 코드는 무엇인가에 대해 열심히 고민하고 배우면서 리팩토링을 하고 있으며 현재 UI 개선을 위한 리팩토링 진행 중입니다.
+- 원티드 프리온보딩 챌린지를 통해 컴포넌트의 분리, 인증과 인가, OOP와 추상화, 클린 코드는 무엇인가에 대해 고민하고 학습할 수 있었습니다.
 - NodeJs로 구축된 server를 NodeJs express로 client단과 직접 연결했습니다. 투두의 CRUD API 요청은 Axios를 사용합니다.
 - Client/Server State를 React-Query로 관리합니다.
 - 로그인 시 유저 토큰을 로컬 스토리지에 저장하여 자동 로그인 기능을 구현하였습니다.
